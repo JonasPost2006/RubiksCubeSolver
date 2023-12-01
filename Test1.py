@@ -1,4 +1,5 @@
 #! D:\Coderclass\RubiksCubeSolver\RubiksCubeSolver\venv\Scripts\python.exe
+
 import serial
 import time
 
