@@ -1,11 +1,11 @@
 from typing import NewType, Dict
-from .main import Colour
+from colour import Colour
 
 Corner = NewType("Corner", Dict[str, Colour])
 Edge = NewType("Edge", Dict[str, Colour])
 
 EDGE_TO_UPFRONT = {
-    "UF": "U2 U2",
+    "UF": "U2 U2",  #Moves die gedaan moeten worden om een edge naar upfront te krijgen. (2e van 1e rij als je van voren kijkt)
     "UL": "U'",
     "UR": "U",
     "UB": "U2",

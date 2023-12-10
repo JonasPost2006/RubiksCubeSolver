@@ -1,21 +1,24 @@
-#! D:\Jonas\Coderclass\CubeSolver\RubiksCubeSolver\venv\Scripts\python.exe
+
 
 import serial
 import time
+# import kociemba
 
-port = 'COM10' #verander naar goede uitgang
+port = 'COM3' #verander naar goede uitgang
+ser = serial.Serial(port, 9600, timeout=1) #baudrate = 115200 voor snellere communicatie
+# time.sleep(2)
 
-ser = serial.Serial(port, 9600, timeout=1)
-
-
+# cubeStatus = "DRLUUBFBRBLURRLRUBLRDDFDLFUFUFFDBRDUBRUFLLFDDBFLUBLRBD"
+# solution = kociemba.solve(cubeStatus)
+# print("Solution: ", solution)
 
 def write_read(data):
-    ser.write(bytes(data, 'utf-8')) #Checken of dit 'user_input' stuurt of de echte input
-    time.sleep(0.01) #?????
-    incommingData = ser.readline()
-    return incommingData
+    ser.write(bytes(data, 'utf-8'))
+    time.sleep(1)
+    incommingdata = ser.readline()
+    return incommingdata
 
 while True:
-    value = input("Voer de oplossing in: ")
-    oplossing = write_read(value)
-    print(oplossing)
+    oplossing = input("Voer oplossing in: ")
+    value = write_read(oplossing)
+    print(value)

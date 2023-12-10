@@ -13,15 +13,17 @@ AccelStepper stepper6(1, 2, 9);  // back
 MultiStepper steppersControl;  // Create an instance of MultiStepper
 
 long gotoposition[6]; // An array to store the target positions for each stepper motor
+int speed = 4000; //rpm
 
 void setup() {
   Serial.begin(9600);  // Initialize serial communication
-  stepper1.setMaxSpeed(1000); // Set maximum speed value for the stepper
-  stepper2.setMaxSpeed(1000);
-  stepper3.setMaxSpeed(1000);
-  stepper4.setMaxSpeed(1000);
-  stepper5.setMaxSpeed(1000);
-  stepper6.setMaxSpeed(1000);
+  Serial.print("Ready!")
+  stepper1.setMaxSpeed(speed); // Set maximum speed value for the stepper
+  stepper2.setMaxSpeed(speed);
+  stepper3.setMaxSpeed(speed);
+  stepper4.setMaxSpeed(speed);
+  stepper5.setMaxSpeed(speed);
+  stepper6.setMaxSpeed(speed);
 
   // Adding the 6 steppers to the steppersControl instance for multi-stepper control
   steppersControl.addStepper(stepper1);
@@ -34,50 +36,49 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    char command = Serial.read();
-    executeCommand(command);
+    char move = Serial.read(); //Serial.readString(); PROBEREN
+    motorMove(move);
   }
 }
 
-void executeCommand(char command) {
-  switch (command) {
+void motorMove(char move) {
+  switch (move) {
     case 'u':
-      turnMotor(0, -400); // Turn up motor by 400 steps (90 degrees)
+      turnMotor(0, -400); // Draai de motor 90 graden met de klok mee
       break;
     case 'U':
-      turnMotor(0, 400); // Turn up motor in the opposite direction by 400 steps
+      turnMotor(0, 400); // Draai de motor 90 graden tegen de klok in
       break;
     case 'd':
-      turnMotor(1, 400); // Turn down motor by 400 steps (90 degrees)
+      turnMotor(1, 400);
       break;
     case 'D':
-      turnMotor(1, -400); // Turn down motor in the opposite direction by 400 steps
+      turnMotor(1, -400); 
       break;
     case 'l':
-      turnMotor(2, -400); // Turn left motor by 400 steps (90 degrees)
+      turnMotor(2, -400); 
       break;
     case 'L':
-      turnMotor(2, 400); // Turn left motor in the opposite direction by 400 steps
+      turnMotor(2, 400); 
       break;
     case 'r':
-      turnMotor(3, -400); // Turn right motor by 400 steps (90 degrees)
+      turnMotor(3, -400); 
       break;
     case 'R':
-      turnMotor(3, 400); // Turn right motor in the opposite direction by 400 steps
+      turnMotor(3, 400);
       break;
     case 'b':
-      turnMotor(4, -400); // Turn front motor by 400 steps (90 degrees)
+      turnMotor(4, -400); 
       break;
     case 'B':
-      turnMotor(4, 400); // Turn front motor in the opposite direction by 400 steps
+      turnMotor(4, 400); 
       break;
     case 'f':
-      turnMotor(5, -400); // Turn back motor by 400 steps (90 degrees)
+      turnMotor(5, -400);
       break;
     case 'F':
-      turnMotor(5, 400); // Turn back motor in the opposite direction by 400 steps
+      turnMotor(5, 400); 
       break;
-    // Add more cases for other commands if needed
   }
 }
 
