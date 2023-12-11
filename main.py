@@ -61,7 +61,7 @@ class Cube:
     def draai_face(self, face:str):
         self.faces[face] = [list(row) for row in zip(*self.faces[face][::-1])]
 
-    def daai_aanligende_faces(self, face:str):
+    def draai_aanligende_faces(self, face:str):
         if face == "U":
             veranderende_rijen = [self.faces[face][0] for face in ["F", "L", "B", "R"]]  #Maak een lijst met alle pieces in de eerste rij van de aanligende zijdes.
             self.faces["F"][0], self.faces["L"][0], self.faces["B"][0], self.faces["R"][0] = veranderende_rijen[-1:] + veranderende_rijen[:-1] #p_i_r[-1:] pakt de inhoud van het laatste element in de lijst, dus eerste rij van zijde R
@@ -73,15 +73,33 @@ class Cube:
         
         elif face == "F":
             veranderende_faces = [self.faces["U"], transporeer(self.faces["R"]), self.faces["D"], transporeer(self.faces["L"])]
-            veranderende_rijen = [veranderende_faces[0][2], veranderende_faces[1][0][::-1], self.faces[2][0], transporeer(self.faces[3][2][::-1])]
+            veranderende_rijen = [veranderende_faces[0][2], veranderende_faces[1][0][::-1], veranderende_faces[2][0], veranderende_faces[3][2][::-1]]
 
             veranderende_faces[0][2], veranderende_faces[1][0], veranderende_faces[2][0], veranderende_faces[3][2] = veranderende_rijen[-1:] + veranderende_rijen[:-1]
 
             self.faces["U"][2] = veranderende_faces[0][2]
             self.faces["R"] = transporeer(veranderende_faces[1]) #transporeer terug
             self.faces["D"][0] = veranderende_faces[2][0]
-            self.faces["L"] = veranderende_faces([3])
+            self.faces["L"] = transporeer(veranderende_faces[3])
 
+        elif face == "R":
+            self.draai_cube_rechts()
+            self.draai_aanligende_faces("F")
+            self.draai_cube_rechts(kloktegen = True)
+
+    def draai(self, move:Move):
+        for _ in range(2 if move.dubbel else 3 if move.kloktegen else 1):
+            self.draai_face(move.face)
+            self.draai_aanligende_faces(move.face)
+
+    def draai_cube_rechts(self, dubbel = False, kloktegen = False):
+        for _ in range(2 if dubbel else 3 if kloktegen else 1):
+            veranderende_faces = [self.faces[face] for face in ["F", "L", "B", "R"]]
+            self.faces["F"], self.faces["L"], self.faces["B"], self.faces["R"] = veranderende_faces[-1:] + veranderende_faces[:-1]
+
+            self.draai_face("U")
+            for _ in range(3):
+                self.draai_face("D")        #????????????????????/
 
     def print_cube(self):
         for face, content in self.faces.items():
@@ -95,7 +113,7 @@ class Cube:
 
 def transporeer(matrix):
     return list(map(list, zip(*matrix)))
-# cube = Cube(3)
-# # cube.print_cube()
-# cube.draai_face("F") #Werkt nog niet
-# cube.print_cube()
+cube = Cube(3)
+move_F = Move("R", False, False)
+cube.draai(move_F)
+cube.print_cube()
