@@ -9,8 +9,11 @@ import moveDecoder
 class Cube:
     def __init__(self, size:3): #int = 3 moet gegeven worden voor 3x3 rubiks
         self.size = size
-        self.faces = {face: self.maak_face(colour, size) for face, colour in COLOUR_MAP}
+        self.faces = {face: self.maak_face(colour, size) for face, colour in COLOUR_MAP} #Dit maakt de zes zijdes van de cube met elk een eigen kleur.
     
+    def maak_face(self, colour: Colour, size: 3): #Creëert een 2D lijst van een cube face
+        return [[colour for _ in range(size)] for _ in range(size)] #Geeft bijv. [[Colour("red"), Colour("red"), Colour("red")] x 3]
+
     def get_sticker(self, sticker: str) -> Colour:
         for perm in permutations(sticker):
             if "".join(perm) in EDGE_TO_UPFRONT:
@@ -46,6 +49,15 @@ class Cube:
     def do_moves(self, moves: Union[str, List[Move]]): #Accepteert een string van moves, of een lijst Move. De moves worden vervolgens in een list gezet
         if isinstance(moves, str):
             moves = moveDecoder.hussel_naar_moves(moves)
+        
+        for move in moves:
+            if move.face == "y":        #y is notatie om de cube naar rechts te draaien zonder een zijde te draaien
+                self.draai_cube_rechts()
+            elif move.face == "y'":
+                for _ in range(3):
+                    self.draai_cube_rechts()
+            else:
+                self.draai(move)
     
     def opgelost(self) -> bool:
         for face in self.faces.values():
@@ -54,9 +66,6 @@ class Cube:
                     return False
         
         return True
-    
-    def maak_face(self, colour: Colour, size: 3): #Creëert een 2D lijst van een cube face
-        return [[colour for _ in range(size)] for _ in range(size)] #Geeft bijv. [[Colour("red"), Colour("red"), Colour("red")] x 3]
     
     def draai_face(self, face:str):
         self.faces[face] = [list(row) for row in zip(*self.faces[face][::-1])]
@@ -112,18 +121,27 @@ class Cube:
                 self.draai_face("D")        #????????????????????/
 
     def print_cube(self):
-        for face, content in self.faces.items():
-            print(f"Face {face}:")
-            for row in content:
-                # Map RGB values to color names
-                color_names_row = [COLOUR_NAMES[colour] for colour in row]
-                print(color_names_row)
-            print()  # Print an empty line for separation between faces
+        unfolded_order = [("U", (0, 1)), ("L", (1, 0)), ("F", (1, 1)), ("R", (1, 2)), ("B", (1, 3)), ("D", (2, 1))]
+        
+        unfolded_cube = [["     " for _ in range(12)] for _ in range(9)]
+
+        for face, (row_offset, col_offset) in unfolded_order:
+            face_content = self.faces[face]
+            for row in range(self.size):
+                for col in range(self.size):
+                    unfolded_row = row + row_offset * self.size
+                    unfolded_col = col + col_offset * self.size
+                    unfolded_cube[unfolded_row][unfolded_col] = f"[{COLOUR_NAMES[face_content[row][col]]}]"
+
+        for row in unfolded_cube:
+            print(" ".join(row))
 
 
 def transporeer(matrix):
     return list(map(list, zip(*matrix)))
-cube = Cube(3)
-move_F = Move("B", False, False)
-cube.draai(move_F)
-cube.print_cube()
+# cube = Cube(3)
+# move_F = Move("F", False, False)
+# move_R = Move("R", False, False)
+# cube.draai(move_F)
+# cube.draai(move_R)
+# cube.print_cube()
