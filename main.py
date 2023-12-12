@@ -86,6 +86,16 @@ class Cube:
             self.draai_cube_rechts()
             self.draai_aanligende_faces("F")
             self.draai_cube_rechts(kloktegen = True)
+        
+        elif face == "L":
+            self.draai_cube_rechts(kloktegen = True)
+            self.draai_aanligende_faces("F")
+            self.draai_cube_rechts()
+
+        elif face == "B":
+            self.draai_cube_rechts(dubbel = True)
+            self.draai_aanligende_faces("F")
+            self.draai_cube_rechts(dubbel = True)
 
     def draai(self, move:Move):
         for _ in range(2 if move.dubbel else 3 if move.kloktegen else 1):
@@ -114,6 +124,6 @@ class Cube:
 def transporeer(matrix):
     return list(map(list, zip(*matrix)))
 cube = Cube(3)
-move_F = Move("R", False, False)
+move_F = Move("B", False, False)
 cube.draai(move_F)
 cube.print_cube()
