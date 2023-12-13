@@ -6,11 +6,11 @@ from main import Cube
 from move import Move
 from movesGedaan import movesGedaan
 from colour import WHITE, GREEN, ORANGE, BLUE, RED, YELLOW, COLOUR_NAMES
-from moveDecoder import hussel_naar_moves, moves_naar_hussel
+from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communicatie
 
 def geef_oplossing(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces)) #Belangrijk om een kopie van de status van de cube te maken, zodat deze niet wordt verandert tijdens het zoeken naar de oplossing
-
+    
     witte_kruis(kopie_cube)
 
     def print_cube(self):
@@ -29,6 +29,22 @@ def geef_oplossing(cube: Cube) -> List[Move]:
         for row in unfolded_cube:
             print(" ".join(row))
     kopie_cube.print_cube()
+    blatest = kopie_cube.movesGedaan
+    print("Oplossing: ", blatest)
+    print("Husselvorm: ", moves_naar_hussel(blatest))
+    goede_move_vorm = moves_naar_communicatie(blatest).lower()
+    print("Husselvorm: ", goede_move_vorm)
+
+def get_goede_move_vorm(cube: Cube) -> str:
+    kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
+    witte_kruis(kopie_cube)
+
+    kopie_cube.print_cube()
+    blatest = kopie_cube.movesGedaan
+    goede_move_vorm = moves_naar_communicatie(blatest).lower()
+    print(goede_move_vorm)
+    
+    return goede_move_vorm
 
 def witte_kruis(cube: movesGedaan):
     EDGE_PIECES = {
