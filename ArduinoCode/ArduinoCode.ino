@@ -38,6 +38,7 @@ void loop() {
   if (Serial.available() > 0) {
     char move = Serial.read(); //Serial.readString(); PROBEREN
     motorMove(move);
+    Serial.print("Moves uitgevoerd")
   }
 }
 

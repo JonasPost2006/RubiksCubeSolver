@@ -1,6 +1,6 @@
 from typing import List, Dict, Union
 
-from main import Cube
+from rubiks import Cube
 from pieces import Corner, Edge, EDGE_TO_UPFRONT, CORNER_TO_UPFRONT
 from colour import Colour
 from move import Move

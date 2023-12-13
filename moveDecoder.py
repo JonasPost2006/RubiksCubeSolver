@@ -45,8 +45,8 @@ def moves_naar_communicatie(moves: List[Move]) -> str:
     return "".join(com) #Spatie tussen elke beweging van hussel
 
 def hussel_naar_communicatie(moves: List[Move]) -> str:
-    hussel_naar_moves(moves)
-    moves_naar_communicatie(moves)
+    nieuwe_moves = hussel_naar_moves(moves)
+    moves_naar_communicatie(nieuwe_moves)
 
 def inverted_moves(moves: List[Move]):
     inverted_moves = []
