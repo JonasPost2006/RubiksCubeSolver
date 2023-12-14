@@ -35,7 +35,7 @@ class movesGedaan(Cube):
             piece[1]: Colour(self.faces["F"][0][-1]),
             piece[2]: Colour(self.faces["R"][0][0])
         })
-        self.do_moves(moveDecoder.inverted_moves(moves, False))
+        self.do_moves(moveDecoder.inverted_moves(moves), False)
         return info
     
     def do_moves(self, moves: Union[str, List[Move]], save_history: bool = True): #moves kan een string of een lijst aan moves zijn

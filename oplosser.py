@@ -38,11 +38,13 @@ from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communi
 def geef_oplossing(cube: Cube) -> str:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
     witte_kruis(kopie_cube)
+    witte_hoekjes(kopie_cube)
 
-    # kopie_cube.print_cube()
+    kopie_cube.print_cube()
     moves = kopie_cube.movesGedaan
     moves_in_goede_move_vorm = moves_naar_communicatie(moves).lower()
-    # print(moves_in_goede_move_vorm)
+    print(moves_in_goede_move_vorm)
+    print(moves_in_goede_move_vorm.count())
     
     return moves_in_goede_move_vorm
 
@@ -78,15 +80,46 @@ def witte_kruis(cube: movesGedaan):
                 break
     # cube.do_moves("D2")
 
-# cube = Cube(3)
-# hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net
-# cube.do_moves(hussel_moves)
-# cube.print_cube()
-# print()
-# print()
+def witte_hoekjes(cube:Cube):
+    HOEKJES = {
+        "UFR": "U2 U2", #U2 U2
+        "UBR": "U",
+        "UBL": "U2",
+        "UFL": "U'",
+        "DFR": "R U R' U'",
+        "DBR": "R' U R U",
+        "DBL": "L U2 L'", #"L U L' U"
+        "DFL": "L' U' L", 
+    }
+
+    for kleur1, kleur2 in [(GREEN, ORANGE), (ORANGE, BLUE), (BLUE, RED), (RED, GREEN)]:
+        for hoekje in HOEKJES:
+            current_corner = cube.get_corner(hoekje).values()
+
+            if kleur1 in current_corner and kleur2 in current_corner and WHITE in current_corner:
+                cube.do_moves(HOEKJES[hoekje])
+
+                if cube.get_sticker("UFR") == WHITE:
+                    moves = "U R U2 R' U R U' R'"
+                elif cube.get_sticker("FUR") == WHITE:
+                    moves = "U R U' R'"
+                else:
+                    moves = "R U R'"
+                
+                cube.do_moves(moves)
+                cube.do_moves("D")
+                break
+
+
+cube = Cube(3)
+hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net
+cube.do_moves(hussel_moves)
+cube.print_cube()
+print()
+print()
 
 # start = time.time()
-# geef_oplossing(cube)
+geef_oplossing(cube)
 # end = time.time()
 # print(end - start)
 

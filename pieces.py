@@ -24,8 +24,8 @@ CORNER_TO_UPFRONT = {
     "UFR": "U2 U2",
     "DFR": "R",
     "DBR": "R2",
-    "URB": "U",
-    "ULF": "U'",
+    "UBR": "U",
+    "UFL": "U'",
     "UBL": "U2",
     "DFL": "L' U'",
     "DBL": "L2 U'"
