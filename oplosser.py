@@ -35,11 +35,13 @@ from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communi
 #     # goede_move_vorm = moves_naar_communicatie(blatest).lower()
 #     # print("Husselvorm: ", goede_move_vorm)
 
-def geef_oplossing(cube: Cube) -> str:
+def geef_oplossing(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
-    kopie_cube.print_cube()
+    # kopie_cube.print_cube()
     witte_kruis(kopie_cube)
     witte_hoekjes(kopie_cube)
+    middelste_laag(kopie_cube)
+    OLL1(kopie_cube)
 
     print()
     print()
@@ -48,7 +50,8 @@ def geef_oplossing(cube: Cube) -> str:
     print(moves_naar_hussel(moves))
     moves_in_goede_move_vorm = moves_naar_communicatie(moves).lower()
     print(moves_in_goede_move_vorm)
-    # print(moves_in_goede_move_vorm.count())
+    aantal_moves = len(moves_in_goede_move_vorm)
+    print(aantal_moves)
     
     return moves_in_goede_move_vorm
 
@@ -86,7 +89,7 @@ def witte_kruis(cube: movesGedaan):
 
 def witte_hoekjes(cube:Cube):
     HOEKJES = {
-        "UFR": "U2 U2", #U2 U2
+        "UFR": "U2 U2", #" "
         "UBR": "U",
         "UBL": "U2",
         "UFL": "U'",
@@ -114,11 +117,60 @@ def witte_hoekjes(cube:Cube):
                 cube.do_moves("D'")
                 break
 
+def middelste_laag(cube:Cube):
+    EDGE_PIECES = {
+        "UF": "", #"U2 U2"
+        "UL": "U'",
+        "UR": "U",
+        "UB": "U2",
+        "LB": "L U' L' B L' B' L",
+        "LF": "L F' L' F L' U' L U",
+        "RB": "R' U R B' R B R'",
+        "RF": "R' F R F' R U R' U'"
+    }
+
+    for kleur1, kleur2 in [(GREEN, ORANGE), (ORANGE, BLUE), (BLUE, RED), (RED, GREEN)]:
+        for edge in EDGE_PIECES:
+            current_edge = tuple(cube.get_edge(edge).values())
+
+            # if kleur1 in current_edge and kleur2 in current_edge:
+            if current_edge == (kleur1, kleur2) or current_edge == (kleur2, kleur1):
+                cube.do_moves(EDGE_PIECES[edge])
+                
+                if cube.get_sticker("UF") == kleur1:
+                    moves = "U2 R' F R F' R U R'"
+                else:
+                    moves = "U R U' R' F R' F' R"
+                cube.do_moves(moves)
+                cube.do_moves("y'") #Draai cube naar links
+                break
+
+#2-look OLL (Bron: https://jperm.net/3x3/cfop)
+#Stap 1
+def OLL1(cube:Cube):
+    for _ in range(4):
+        bovenste_laag = [cube.get_sticker("UL"), cube.get_sticker("UB"), cube.get_sticker("UR"), cube.get_sticker("UF")]
+        status_bovenste_laag = [face == YELLOW for face in bovenste_laag]
+
+        if status_bovenste_laag == [True, True, False, False]: #Hoekje linksboven
+            cube.do_moves("F U R U' R' F'")
+            break
+        if status_bovenste_laag == [True, False, True, False]:
+            cube.do_moves("F R U R' U' F'") #Horizontale lijn
+            break
+        if  status_bovenste_laag == [False, False, False, False]:#F R U R' U' F' U2 F U R U' R' F'
+            cube.do_moves("R U2 R2 F R F' U2 R' F R F'") #Checken of deze altijd werkt
+            break
+        else:
+            cube.do_moves("U")
+        
+             
+
 
 cube = Cube(3)
 hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net
 cube.do_moves(hussel_moves)
-cube.print_cube()
+# cube.print_cube()
 print()
 print()
 
