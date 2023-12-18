@@ -37,14 +37,18 @@ from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communi
 
 def geef_oplossing(cube: Cube) -> str:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
+    kopie_cube.print_cube()
     witte_kruis(kopie_cube)
     witte_hoekjes(kopie_cube)
 
+    print()
+    print()
     kopie_cube.print_cube()
     moves = kopie_cube.movesGedaan
+    print(moves_naar_hussel(moves))
     moves_in_goede_move_vorm = moves_naar_communicatie(moves).lower()
     print(moves_in_goede_move_vorm)
-    print(moves_in_goede_move_vorm.count())
+    # print(moves_in_goede_move_vorm.count())
     
     return moves_in_goede_move_vorm
 
@@ -107,7 +111,7 @@ def witte_hoekjes(cube:Cube):
                     moves = "R U R'"
                 
                 cube.do_moves(moves)
-                cube.do_moves("D")
+                cube.do_moves("D'")
                 break
 
 

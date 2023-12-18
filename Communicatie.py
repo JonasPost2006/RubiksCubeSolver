@@ -2,10 +2,10 @@
 import sys
 import serial
 import time
-from moveDecoder import hussel_naar_communicatie
+from moveDecoder import hussel_naar_moves
 # import kociemba
 
-port = 'COM7' #verander naar goede uitgang
+port = 'COM10' #verander naar goede uitgang
 ser = serial.Serial(port, 9600, timeout=1) #baudrate = 115200 voor snellere communicatie
 # time.sleep(2)
 
@@ -28,10 +28,10 @@ ser = serial.Serial(port, 9600, timeout=1) #baudrate = 115200 voor snellere comm
 
 def verstuurHussel(hussel):
     # cube.do_moves(hussel)
-    hussel_in_comvorm = hussel_naar_communicatie(hussel)
-    if hussel_in_comvorm is not None:
-        ser.write(bytes(hussel_in_comvorm, 'utf-8'))
-        print(hussel_in_comvorm)
+    hussel_in_movevorm = hussel_naar_moves(hussel)
+    if hussel_in_movevorm is not None:
+        ser.write(bytes(hussel_in_movevorm, 'utf-8'))
+        print(hussel_in_movevorm)
         time.sleep(1)
 
 def verstuurOplossing(goede_move_vorm = None):

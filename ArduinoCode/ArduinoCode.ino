@@ -17,7 +17,7 @@ int speed = 4000; //rpm
 
 void setup() {
   Serial.begin(9600);  // Initialize serial communication
-  Serial.print("Ready!")
+  Serial.print("Ready!");
   stepper1.setMaxSpeed(speed); // Set maximum speed value for the stepper
   stepper2.setMaxSpeed(speed);
   stepper3.setMaxSpeed(speed);
@@ -38,7 +38,7 @@ void loop() {
   if (Serial.available() > 0) {
     char move = Serial.read(); //Serial.readString(); PROBEREN
     motorMove(move);
-    Serial.print("Moves uitgevoerd")
+    // Serial.print("Moves uitgevoerd");
   }
 }
 
@@ -51,10 +51,10 @@ void motorMove(char move) {
       turnMotor(0, 400); // Draai de motor 90 graden tegen de klok in
       break;
     case 'd':
-      turnMotor(1, 400);
+      turnMotor(1, -400);
       break;
     case 'D':
-      turnMotor(1, -400); 
+      turnMotor(1, 400); 
       break;
     case 'l':
       turnMotor(2, -400); 
