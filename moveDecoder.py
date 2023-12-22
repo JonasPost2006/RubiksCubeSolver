@@ -33,12 +33,12 @@ def moves_naar_communicatie(moves: List[Move]) -> str:
     com = []
 
     for move in moves:
-        current_move = move.face
+        current_move = move.face.lower()
 
         if move.dubbel:
             current_move += current_move
         elif move.kloktegen:
-            current_move += current_move + current_move
+            current_move = current_move.upper()
         
         com.append(current_move)
 

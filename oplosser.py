@@ -47,8 +47,9 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     print()
     kopie_cube.print_cube()
     moves = kopie_cube.movesGedaan
+    print("HIER", moves)
     print(moves_naar_hussel(moves))
-    moves_in_goede_move_vorm = moves_naar_communicatie(moves).lower()
+    moves_in_goede_move_vorm = moves_naar_communicatie(moves)#.lower()
     print(moves_in_goede_move_vorm)
     aantal_moves = len(moves_in_goede_move_vorm)
     print(aantal_moves)
@@ -89,7 +90,7 @@ def witte_kruis(cube: movesGedaan):
 
 def witte_hoekjes(cube:Cube):
     HOEKJES = {
-        "UFR": "U2 U2", #" "
+        "UFR": "",
         "UBR": "U",
         "UBL": "U2",
         "UFL": "U'",
@@ -119,7 +120,7 @@ def witte_hoekjes(cube:Cube):
 
 def middelste_laag(cube:Cube):
     EDGE_PIECES = {
-        "UF": "", #"U2 U2"
+        "UF": "",
         "UL": "U'",
         "UR": "U",
         "UB": "U2",
