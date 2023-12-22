@@ -30,7 +30,7 @@ def moves_naar_hussel(moves: List[Move]) -> str:
     return " ".join(hussel) #Spatie tussen elke beweging van hussel
 
 def moves_naar_communicatie(moves: List[Move]) -> str:
-    com = []
+    communicatie = []
 
     for move in moves:
         current_move = move.face.lower()
@@ -40,9 +40,11 @@ def moves_naar_communicatie(moves: List[Move]) -> str:
         elif move.kloktegen:
             current_move = current_move.upper()
         
-        com.append(current_move)
 
-    return "".join(com) #Spatie tussen elke beweging van hussel
+        
+        communicatie.append(current_move)
+
+    return "".join(communicatie)
 
 def hussel_naar_communicatie(moves: List[Move]) -> str:
     nieuwe_moves = hussel_naar_moves(moves)

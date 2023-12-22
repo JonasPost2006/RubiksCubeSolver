@@ -81,15 +81,15 @@ class Cube:
             self.faces["F"][2], self.faces["L"][2], self.faces["B"][2], self.faces["R"][2] = veranderende_rijen[1:] + veranderende_rijen[:1]
         
         elif face == "F":
-            veranderende_faces = [self.faces["U"], transporeer(self.faces["R"]), self.faces["D"], transporeer(self.faces["L"])]
+            veranderende_faces = [self.faces["U"], transponeer(self.faces["R"]), self.faces["D"], transponeer(self.faces["L"])]
             veranderende_rijen = [veranderende_faces[0][2], veranderende_faces[1][0][::-1], veranderende_faces[2][0], veranderende_faces[3][2][::-1]]
 
             veranderende_faces[0][2], veranderende_faces[1][0], veranderende_faces[2][0], veranderende_faces[3][2] = veranderende_rijen[-1:] + veranderende_rijen[:-1]
 
             self.faces["U"][2] = veranderende_faces[0][2]
-            self.faces["R"] = transporeer(veranderende_faces[1]) #transporeer terug
+            self.faces["R"] = transponeer(veranderende_faces[1]) #transporeer terug
             self.faces["D"][0] = veranderende_faces[2][0]
-            self.faces["L"] = transporeer(veranderende_faces[3])
+            self.faces["L"] = transponeer(veranderende_faces[3])
 
         elif face == "R":
             self.draai_cube_rechts()
@@ -118,7 +118,7 @@ class Cube:
 
             self.draai_face("U")
             for _ in range(3):
-                self.draai_face("D")        #????????????????????/
+                self.draai_face("D")        #????????????????????
 
     def print_cube(self):
         unfolded_order = [("U", (0, 1)), ("L", (1, 0)), ("F", (1, 1)), ("R", (1, 2)), ("B", (1, 3)), ("D", (2, 1))]
@@ -137,7 +137,7 @@ class Cube:
             print(" ".join(row))
 
 
-def transporeer(matrix):
+def transponeer(matrix):
     return list(map(list, zip(*matrix)))
 # cube = Cube(3)
 # move_F = Move("F", False, False)
