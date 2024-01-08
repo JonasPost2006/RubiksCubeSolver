@@ -34,7 +34,7 @@ def verstuurHussel(hussel):
         print(hussel_in_movevorm)
         time.sleep(1)
 
-def verstuurOplossing(goede_move_vorm = None):
+def verstuurMoves(goede_move_vorm = None):
     if goede_move_vorm is not None:
         ser.write(bytes(goede_move_vorm, 'utf-8'))
         print("Oplossing verstuurd: ")

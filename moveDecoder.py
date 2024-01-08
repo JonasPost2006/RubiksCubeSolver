@@ -46,6 +46,8 @@ def moves_naar_communicatie(moves: List[Move]) -> str:
 
         if move.kloktegen:
             current_move = current_move.upper()
+            if move.dubbel:
+                current_move += current_move
         elif move.dubbel:
             current_move += current_move
         
@@ -72,6 +74,9 @@ def inverted_moves(moves: List[Move]):
         inverted_moves.append(inverted_move)
     
     return inverted_moves
+
+# def oplossing_inverted():
+#     print("TEST")
 
 if __name__ == "__main__": #Nog ff checken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     hussel = "L U2 D B' R2 U2 F R B2 U2 R2 U R2 U2 F2 D R2 D F2"

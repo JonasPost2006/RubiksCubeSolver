@@ -6,7 +6,7 @@ from rubiks import Cube
 from move import Move
 from movesGedaan import movesGedaan
 from colour import WHITE, GREEN, ORANGE, BLUE, RED, YELLOW, COLOUR_NAMES
-from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communicatie
+from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communicatie, inverted_moves
 
 
 def geef_oplossing(cube: Cube) -> List[Move]:
@@ -37,7 +37,7 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     print("Aantal moves:", aantal_moves)
     print("Opgelost in", int(tijd_gekost), "miliseconden!")
     
-    return moves_in_goede_move_vorm
+    return moves_in_goede_move_vorm, moves
 
 def geef_oplossing_comments(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
@@ -324,8 +324,16 @@ hussel_moves = input("Wat is de hussel? Voer in: ")
 # hussel_moves = "F R U R' U' R U R' U' R U R' U' F'" #DEBUGGER
 # hussel_moves = "D' R2 B' L2 R2 B' R2 F R2 B' R2 B2 U L2 B2 D L D R' B" #Deze doet het nog niet
 cube.do_moves(hussel_moves)
+# inverted_hussel = inverted_moves(hussel_naar_moves(hussel_moves))
+# print(inverted_hussel, "HIEEERRRR")
+# inverted_hussel_com = moves_naar_communicatie(inverted_hussel)
+# print(inverted_hussel_com)
+
+# cube.print_cube()
 print()
 print()
+
+# # start = time.time()
 geef_oplossing(cube)
 
 
