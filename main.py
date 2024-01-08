@@ -9,7 +9,7 @@ from oplosser import geef_oplossing
 
 
 cube = Cube(3)
-hussel = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2"
+hussel = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #llUddrFrllblUrrffbbdffllbbddll
 cube.do_moves(hussel)
 cube.print_cube()
 print()

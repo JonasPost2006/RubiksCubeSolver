@@ -31,14 +31,25 @@ def moves_naar_hussel(moves: List[Move]) -> str:
 
 def moves_naar_communicatie(moves: List[Move]) -> str:
     communicatie = []
+    move_lijst = ["f", "r", "b", "l"]
+    move_y = 0
 
     for move in moves:
-        current_move = move.face.lower()
+        if move.face.lower() == 'y': 
+            move_y += 1
+            continue
 
-        if move.dubbel:
-            current_move += current_move
-        elif move.kloktegen:
+        # Determine the current move
+        if move.face.lower() in move_lijst:
+            current_move = move_lijst[(move_lijst.index(move.face.lower()) + move_y) % len(move_lijst)]
+        else:
+            current_move = move.face.lower()
+
+        # Apply kloktegen and dubbel
+        if move.kloktegen:
             current_move = current_move.upper()
+        elif move.dubbel:
+            current_move += current_move
         
 
         

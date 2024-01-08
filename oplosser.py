@@ -47,7 +47,7 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     print()
     kopie_cube.print_cube()
     moves = kopie_cube.movesGedaan
-    print("HIER", moves)
+    # print("HIER", moves)
     print(moves_naar_hussel(moves))
     moves_in_goede_move_vorm = moves_naar_communicatie(moves)#.lower()
     print(moves_in_goede_move_vorm)
@@ -143,7 +143,7 @@ def middelste_laag(cube:Cube):
                 else:
                     moves = "U R U' R' F R' F' R"
                 cube.do_moves(moves)
-                cube.do_moves("y'") #Draai cube naar links
+                cube.do_moves("y") #Draai cube naar links
                 break
 
 #2-look OLL (Bron: https://jperm.net/3x3/cfop)
