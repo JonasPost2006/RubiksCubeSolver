@@ -6,7 +6,7 @@ from rubiks import Cube
 from move import Move
 from movesGedaan import movesGedaan
 from colour import WHITE, GREEN, ORANGE, BLUE, RED, YELLOW, COLOUR_NAMES
-from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communicatie
+from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communicatie, inverted_moves
 
 # def geef_oplossing(cube: Cube) -> List[Move]:
 #     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces)) #Belangrijk om een kopie van de status van de cube te maken, zodat deze niet wordt verandert tijdens het zoeken naar de oplossing
@@ -54,7 +54,7 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     aantal_moves = len(moves_in_goede_move_vorm)
     print(aantal_moves)
     
-    return moves_in_goede_move_vorm
+    return moves_in_goede_move_vorm, moves
 
 def witte_kruis(cube: movesGedaan):
     EDGE_PIECES = {
@@ -171,11 +171,16 @@ def OLL1(cube:Cube):
 cube = Cube(3)
 hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net
 cube.do_moves(hussel_moves)
+# inverted_hussel = inverted_moves(hussel_naar_moves(hussel_moves))
+# print(inverted_hussel, "HIEEERRRR")
+# inverted_hussel_com = moves_naar_communicatie(inverted_hussel)
+# print(inverted_hussel_com)
+
 # cube.print_cube()
 print()
 print()
 
-# start = time.time()
+# # start = time.time()
 geef_oplossing(cube)
 # end = time.time()
 # print(end - start)
