@@ -8,54 +8,75 @@ from movesGedaan import movesGedaan
 from colour import WHITE, GREEN, ORANGE, BLUE, RED, YELLOW, COLOUR_NAMES
 from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communicatie
 
-# def geef_oplossing(cube: Cube) -> List[Move]:
-#     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces)) #Belangrijk om een kopie van de status van de cube te maken, zodat deze niet wordt verandert tijdens het zoeken naar de oplossing
-    
-#     witte_kruis(kopie_cube)
-
-#     def print_cube(self):
-#         unfolded_order = [("U", (0, 1)), ("L", (1, 0)), ("F", (1, 1)), ("R", (1, 2)), ("B", (1, 3)), ("D", (2, 1))]
-        
-#         unfolded_cube = [["     " for _ in range(12)] for _ in range(9)]
-
-#         for face, (row_offset, col_offset) in unfolded_order:
-#             face_content = self.faces[face]
-#             for row in range(self.size):
-#                 for col in range(self.size):
-#                     unfolded_row = row + row_offset * self.size
-#                     unfolded_col = col + col_offset * self.size
-#                     unfolded_cube[unfolded_row][unfolded_col] = f"[{COLOUR_NAMES[face_content[row][col]]}]"
-
-#         for row in unfolded_cube:
-#             print(" ".join(row))
-#     kopie_cube.print_cube()
-#     # blatest = kopie_cube.movesGedaan
-#     # print("Oplossing: ", blatest)
-#     # print("Husselvorm: ", moves_naar_hussel(blatest))
-#     # goede_move_vorm = moves_naar_communicatie(blatest).lower()
-#     # print("Husselvorm: ", goede_move_vorm)
 
 def geef_oplossing(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
-    # kopie_cube.print_cube()
+    print("Status na hussel: ")
+    start = time.time()
+
+    kopie_cube.print_cube()
     witte_kruis(kopie_cube)
     witte_hoekjes(kopie_cube)
     middelste_laag(kopie_cube)
     OLL1(kopie_cube)
+    OLL2(kopie_cube, False)
+    PLL1(kopie_cube, False)
+    PLL2(kopie_cube)
 
-    print()
-    print()
-    kopie_cube.print_cube()
+    end = time.time()
+    tijd_gekost = (end - start) * 1000
     moves = kopie_cube.movesGedaan
-    # print("HIER", moves)
-    print(moves_naar_hussel(moves))
-    moves_in_goede_move_vorm = moves_naar_communicatie(moves)#.lower()
-    print(moves_in_goede_move_vorm)
+    moves_in_goede_move_vorm = moves_naar_communicatie(moves)
     aantal_moves = len(moves_in_goede_move_vorm)
-    print(aantal_moves)
+    
+    print("\nOpgelost:")
+    kopie_cube.print_cube()
+    print()
+    print("Moves:", moves_naar_hussel(moves))
+    print("Moves voor communicatie:", moves_in_goede_move_vorm)
+    print("Aantal moves:", aantal_moves)
+    print("Opgelost in", int(tijd_gekost), "miliseconden!")
     
     return moves_in_goede_move_vorm
 
+def geef_oplossing_comments(cube: Cube) -> List[Move]:
+    kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
+    print("Status na hussel: ")
+    kopie_cube.print_cube()
+    witte_kruis(kopie_cube)
+    witte_hoekjes(kopie_cube)
+    middelste_laag(kopie_cube)
+    OLL1(kopie_cube)
+    print()
+    print("GELE KANT")
+    kopie_cube.print_cube()
+    OLL2(kopie_cube)
+    print()
+    print("Hier")
+    kopie_cube.print_cube()
+    PLL1(kopie_cube)
+    kopie_cube.print_cube()
+    PLL2(kopie_cube)
+
+    kopie_cube.print_cube()
+    moves = kopie_cube.movesGedaan
+    # print("HIER", moves)
+    # print(moves_naar_hussel(moves))
+    print()
+    moves_in_goede_move_vorm = moves_naar_communicatie(moves)
+    print(moves_in_goede_move_vorm)
+    aantal_moves = len(moves_in_goede_move_vorm)
+    print(aantal_moves)
+
+    # OLL2(kopie_cube)
+    # kopie_cube.print_cube()
+    # moves2 = kopie_cube.movesGedaan
+    # moves_in_goede_move_vorm2 = moves_naar_communicatie(moves2)
+    # print(moves_in_goede_move_vorm2)
+    # aantal_moves2 = len(moves_in_goede_move_vorm2)
+    # print(aantal_moves2)
+    
+    return moves_in_goede_move_vorm
 def witte_kruis(cube: movesGedaan):
     EDGE_PIECES = {
         "UF": "",
@@ -91,7 +112,7 @@ def witte_kruis(cube: movesGedaan):
 def witte_hoekjes(cube:Cube):
     HOEKJES = {
         "UFR": "",
-        "UBR": "U",
+        "URB": "U",
         "UBL": "U2",
         "UFL": "U'",
         "DFR": "R U R' U'",
@@ -164,19 +185,149 @@ def OLL1(cube:Cube):
             break
         else:
             cube.do_moves("U")
+
+def OLL2(cube:Cube, printen):
+    VORM_GELE_VLAK = { #https://jperm.net/algs/2look/oll
+        "vis_links": "L' U' L U' L' U2 L",
+        "vis_rechts": "R U R' U R U2 R'",
+        "dubbele_vis": "R' F R B' R' F' R B",
+        "kruis_headlights": "F R U R' U' R U R' U' R U R' U' F'",
+        "kruis_zijkant": "U R U2 R2 U' R2 U' R2 U2 R", #U R U2 R2 U' R2 U' R2 U2 R
+        "hamer_headlights": "R2 D R' U2 R D' R' U2 R'",
+        "hamer_zijkant": "L F R' F' L' F R F'"
+    }
+
+    def bovenste_laag_hoekjes(cube: Cube):
+        return [cube.get_sticker("UBL"), cube.get_sticker("UBR"), cube.get_sticker("UFR"), cube.get_sticker("UFL")]
+    
+    def status_bovenste_laag_hoekjes(top_layer):
+        return [face == YELLOW for face in top_layer]
+    
+    for _ in range(4):
+        hoekjes = status_bovenste_laag_hoekjes(bovenste_laag_hoekjes(cube))
+        # print("Hier: ")
+        # print(hoekjes)
+
+        if hoekjes == [False, False, True, False]:
+            if cube.get_sticker("LUF") == YELLOW:
+                cube.do_moves(VORM_GELE_VLAK["vis_links"])
+                if printen == True:
+                    print("Vis links")
+            else:
+                cube.do_moves(VORM_GELE_VLAK["vis_rechts"])
+                if printen == True:
+                    print("Vis rechts")
+            break
+
+        elif hoekjes == [True, False, True, False]:
+            if cube.get_sticker("LUF") == YELLOW:
+                cube.do_moves(VORM_GELE_VLAK["dubbele_vis"])
+                if printen == True:
+                    print("Dubbele vis")
+            else:
+                cube.do_moves("U2")
+                cube.do_moves(VORM_GELE_VLAK["dubbele_vis"])
+                if printen == True:
+                    print("Dubbele vis")
+            break
+
+        elif hoekjes == [False, False, False, False]:
+            # print(cube.get_sticker("FUR"))
+            # print(cube.get_sticker("FUL"))
+            while cube.get_sticker("FUR") != YELLOW or cube.get_sticker("LUF") != YELLOW:
+                cube.do_moves("U")
+
+            if cube.get_corner("UFR")["F"] == cube.get_corner("UBL")["B"]:
+                cube.do_moves(VORM_GELE_VLAK["kruis_headlights"])
+                if printen == True:
+                    print("Kruis headlights")
+            else:
+                # cube.do_moves("U")  #HIER WAS EERST EEN bugg doordat het algoritme wat wij kennen niet in deze positie uitgevoerd kon worden, maar eerst een U nodig was. Deze is aan het algoritme toegevoegd
+                cube.do_moves(VORM_GELE_VLAK["kruis_zijkant"])
+                if printen == True:
+                    print("Kruis zijkant")
+            break
+
+        elif hoekjes == [True, True, False, False]:
+            if cube.get_sticker("LUF") == YELLOW and cube.get_sticker("FUR") == YELLOW:
+                cube.do_moves(VORM_GELE_VLAK["hamer_headlights"])
+                if printen == True:
+                    print("Hamer headlights")
+            else:
+                cube.do_moves("U")
+                cube.do_moves(VORM_GELE_VLAK["hamer_zijkant"])
+                if printen == True:
+                    print("Hamer zijkant")
+            break
+
+        else:
+            cube.do_moves("U")
+
+def PLL1(cube:Cube, printen):    #https://jperm.net/algs/2lookpll
+    for _ in range(4):
+        if cube.get_sticker("FUR") == cube.get_sticker("LUF") and cube.get_sticker("BLU") == cube.get_sticker("BRU"):
+            break
         
-             
+        if cube.get_sticker("FUR") == cube.get_sticker("LUF"):
+            cube.do_moves("U R U R' U' R' F R2 U' R' U' R U R' F'")
+            if printen == True:
+                    print("PLL1 Diagonaal")
+            break
+        
+        cube.do_moves("U")
+    
+    else:
+        cube.do_moves("F R U' R' U' R U R' F' R U R' U' R' F R F'")
+        if printen == True:
+                    print("PLL1 Headlights")
+
+
+def PLL2(cube:Cube):
+    opgelost = 0
+    # print(cube.get_sticker("FU"))
+    for _ in range(4):
+        if cube.get_sticker("FUR") == cube.get_sticker("FU"):
+            opgelost += 1
+        cube.do_moves("U")
+        # print(opgelost)
+    
+    if opgelost != 4:
+        if opgelost == 0:
+            cube.do_moves("R U' R U R U R U' R' U' R2") #Om 1 kant te solven
+
+        while cube.get_sticker("FUR") != cube.get_sticker("FU"):
+            cube.do_moves("U")
+        cube.do_moves("U2") #Zorgt dat opgeloste kant achter zit zodat het algoritme uitgevoerd kan worden
+
+        while cube.get_sticker("FUR") != cube.get_sticker("FU"):
+            # print("Vanaf Hier:")
+            # cube.print_cube()
+            cube.do_moves("R U' R U R U R U' R' U' R2") #Herhaalt dit algoritme, zodat elke kant kan worden opgelost. Dit kan een stuk efficienter door Pll(Ub) of Pll(Ua) te pakken (kijk jperm link)
+            # print("2e!!!!!!!!!!!!!")
+            # cube.print_cube()
+
+    while cube.get_sticker("FU") != cube.get_sticker("FR"):
+        cube.do_moves("U")
+
+
+
+
+                
+
 
 
 cube = Cube(3)
-hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net
+hussel_moves = input("Wat is de hussel? Voer in: ")
+# hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net - doet het nog niet
+# hussel_moves = "D L' F' D2 B' D' F' L' B2 R' F2 R' D2 R F2 L2 U2 L' B" #Deze doet het niet, nu wel
+# hussel_moves = "R' F R B' R' F' R B R' F R B' R' F' R B R' F R B' R' F' R B"
+# hussel_moves = "F R U R' U' R U R' U' R U R' U' F'" #DEBUGGER
+# hussel_moves = "D' R2 B' L2 R2 B' R2 F R2 B' R2 B2 U L2 B2 D L D R' B" #Deze doet het nog niet
 cube.do_moves(hussel_moves)
-# cube.print_cube()
 print()
 print()
-
-# start = time.time()
 geef_oplossing(cube)
-# end = time.time()
-# print(end - start)
 
+
+
+#NOG DOEN: VOORDAT ELKE FUNCTIE BEGINT CHECKEN OF HET RESULTAAT AL BEHAALD IS, VEEL EFFICIËNTER

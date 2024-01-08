@@ -35,24 +35,27 @@ def moves_naar_communicatie(moves: List[Move]) -> str:
     move_y = 0
 
     for move in moves:
-        if move.face.lower() == 'y': 
+        if move.face.lower() == 'y': #Omdat y niet kan worden toegepast bij de robot moeten de instructies van de moves worden aangepast.
             move_y += 1
-            continue
+            continue    #Y moet niet in de communicatie komen want daar kan de robot niks mee doen. Daarom uit de hele loop
 
-        # Determine the current move
         if move.face.lower() in move_lijst:
             current_move = move_lijst[(move_lijst.index(move.face.lower()) + move_y) % len(move_lijst)]
         else:
             current_move = move.face.lower()
 
-        # Apply kloktegen and dubbel
         if move.kloktegen:
             current_move = current_move.upper()
         elif move.dubbel:
             current_move += current_move
         
+        # if len(communicatie) >= 3 and all(prev_move == communicatie[-1] for prev_move in communicatie[-3:]): WERKT NOG NIET GOED
+        #     del communicatie[-3:]
+        #     continue
+        # elif len(communicatie) >= 2 and communicatie[-1] == communicatie[-2] == current_move:
+        #     del communicatie[-2:]
+        #     current_move = current_move.upper() if current_move.islower() else current_move.lower()
 
-        
         communicatie.append(current_move)
 
     return "".join(communicatie)
