@@ -13,7 +13,7 @@ AccelStepper stepper6(1, 2, 9);  // back
 MultiStepper steppersControl;  // Create an instance of MultiStepper
 
 long gotoposition[6]; // An array to store the target positions for each stepper motor
-int speed = 4000; //rpm
+int speed = 6000; //rpm
 
 void setup() {
   Serial.begin(9600);  // Initialize serial communication

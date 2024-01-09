@@ -11,10 +11,12 @@ from moveDecoder import hussel_naar_moves, moves_naar_communicatie, inverted_mov
 
 cube = Cube(3)
 # hussel = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #llUddrFrllblUrrffbbdffllbbddll
-hussel = "D' R' F R' U' L' D2 R' F' D2 B R2 F' D2 B2 R2 B R2"
-cube.do_moves(hussel)
-hussel_moves = hussel_naar_moves(hussel)
-communicatie_moves_hussel = moves_naar_communicatie(hussel_moves)
+# hussel = "D' R' F R' U' L' D2 R' F' D2 B R2 F' D2 B2 R2 B R2"
+hussel_moves = input("Wat is de hussel? Voer in: ")
+
+cube.do_moves(hussel_moves)
+hussel_moves_pc = hussel_naar_moves(hussel_moves)
+communicatie_moves_hussel = moves_naar_communicatie(hussel_moves_pc)
 verstuurMoves(communicatie_moves_hussel)
 cube.print_cube()
 print()
@@ -31,6 +33,6 @@ invoer = input("Mag hij oplossen? y voor doorgaan.")
 if invoer == "y":
     verstuurMoves(oplossing_com)
 
-invoer2 = input("Mag hij oplossing terug doen? y om door te gaan.")
-if invoer == "y":
-    verstuurMoves(oplossing_inverted_com)
+# invoer2 = input("Mag hij oplossing terug doen? y om door te gaan.")
+# if invoer == "y":
+#     verstuurMoves(oplossing_inverted_com)
