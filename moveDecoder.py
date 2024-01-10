@@ -1,6 +1,6 @@
 from typing import List
-
 from move import Move
+import re
 
 #Hussel en moves zijn anders, een 'geschreven' moveset zoals in pieces.py, het is een notatie die niet handig is om te gebruiken in code.
 #Daarom wordt het hier in een andere vorm gezet.
@@ -75,8 +75,13 @@ def inverted_moves(moves: List[Move]):
     
     return inverted_moves
 
-# def oplossing_inverted():
-#     print("TEST")
+def onnodig_weghalen(moves):
+    moves = re.sub(r'(.)\1{3}', '', moves) #Haal vier opeenvolgende tekens weg, want dat staat gelijk aan niks
+    moves = re.sub(r'([a-z])\1{2}', lambda m: m.group(1).upper(), moves) #Verandert drie opeenvolgende kleine letters in 1 hoofdletter
+    moves = re.sub(r'([A-Z])\1{2}', lambda m: m.group(1).lower(), moves) #Precies tegenovergestelde hierboven
+
+    return moves
+    
 
 if __name__ == "__main__": #Nog ff checken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     hussel = "L U2 D B' R2 U2 F R B2 U2 R2 U R2 U2 F2 D R2 D F2"
