@@ -1,8 +1,8 @@
-import time
+import re
 from rubiks import Cube
 from communicatie import verstuurHussel, verstuurMoves
 from oplosser import geef_oplossing
-from moveDecoder import hussel_naar_moves, moves_naar_communicatie, inverted_moves
+from moveDecoder import hussel_naar_moves, moves_naar_communicatie, inverted_moves, onnodig_weghalen
 
 
 # def get_hussel(hussel):
@@ -21,17 +21,21 @@ verstuurMoves(communicatie_moves_hussel)
 cube.print_cube()
 print()
 # time.sleep(2)
-oplossing_com, oplossing_moves = geef_oplossing(cube)
-oplossing_inverted = inverted_moves(oplossing_moves)
-print(oplossing_inverted)
-oplossing_inverted_com = moves_naar_communicatie(oplossing_inverted)
-print(oplossing_inverted_com)
+oplossing_com = geef_oplossing(cube) #oplossing_com, oplossing_moves
+# oplossing_inverted = inverted_moves(oplossing_moves)
+# print(oplossing_inverted)
+# oplossing_inverted_com = moves_naar_communicatie(oplossing_inverted)
+# print(oplossing_inverted_com)
 # oplossing_inverted = oplossing[::-1]
 # print(oplossing_inverted)
-print(oplossing_com, "VAN TEENSY")
+oplossing_com_verbeterd = onnodig_weghalen(oplossing_com)
+# print(oplossing_com, "VOOR TEENSY Onverbeterd", len(oplossing_com))
+# print(oplossing_com_verbeterd, "VERBETERD", len(oplossing_com_verbeterd))
 invoer = input("Mag hij oplossen? y voor doorgaan.")
 if invoer == "y":
-    verstuurMoves(oplossing_com)
+    verstuurMoves(oplossing_com_verbeterd)
+    print("Moves:", oplossing_com_verbeterd)
+    print("Aantal moves:", len(oplossing_com_verbeterd))
 
 # invoer2 = input("Mag hij oplossing terug doen? y om door te gaan.")
 # if invoer == "y":

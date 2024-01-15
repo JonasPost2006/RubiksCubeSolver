@@ -38,7 +38,7 @@ def verstuurMoves(goede_move_vorm = None):
     if goede_move_vorm is not None:
         ser.write(bytes(goede_move_vorm, 'utf-8'))
         print("Oplossing verstuurd: ")
-        print(goede_move_vorm)
+        # print(goede_move_vorm)
         time.sleep(1)
         data = ser.readline()
         if data:
