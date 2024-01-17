@@ -3,18 +3,18 @@ from rubiks import Cube
 from communicatie import verstuurHussel, verstuurMoves
 from oplosser import geef_oplossing
 from moveDecoder import hussel_naar_moves, moves_naar_communicatie, inverted_moves, onnodig_weghalen
-
+from gui import Gui
 
 # def get_hussel(hussel):
 #     return hussel
-
-
-cube = Cube(3)
 # hussel = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #llUddrFrllblUrrffbbdffllbbddll
 # hussel = "D' R' F R' U' L' D2 R' F' D2 B R2 F' D2 B2 R2 B R2"
-hussel_moves = input("Wat is de hussel? Voer in: ")
 
-cube.do_moves(hussel_moves)
+cube = Cube(3)
+hussel_moves = input("Wat is de hussel? Voer in: ")
+cube.do_moves(hussel_moves)  # Apply the provided scramble
+gui = Gui(cube)
+gui.run()
 hussel_moves_pc = hussel_naar_moves(hussel_moves)
 communicatie_moves_hussel = moves_naar_communicatie(hussel_moves_pc)
 verstuurMoves(communicatie_moves_hussel)

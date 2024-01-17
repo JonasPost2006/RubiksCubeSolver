@@ -5,7 +5,7 @@ import time
 from moveDecoder import hussel_naar_moves
 # import kociemba
 
-port = 'COM10' #verander naar goede uitgang
+port = 'COM5' #verander naar goede uitgang
 ser = serial.Serial(port, 9600, timeout=1) #baudrate = 115200 voor snellere communicatie
 # time.sleep(2)
 
