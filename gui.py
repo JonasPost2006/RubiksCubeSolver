@@ -34,10 +34,9 @@ class Gui:
                         for move in solution.split():
                             self.cube.do_moves(move)
                             self.draw_cube()
-                            # time.sleep(0.01)
+                            
 
-        pygame.quit()
-
+        
     def draw_cube(self):
         for face_num, face in enumerate(["U", "F", "D", "B", "L", "R"]):
             for row_num, row in enumerate(self.cube.faces[face]):
