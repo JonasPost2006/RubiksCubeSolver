@@ -88,4 +88,5 @@ void turnMotor(int motorIndex, int steps) {
   gotoposition[motorIndex] += steps;
   steppersControl.moveTo(gotoposition);
   steppersControl.runSpeedToPosition();
+  // delay(10);
 }

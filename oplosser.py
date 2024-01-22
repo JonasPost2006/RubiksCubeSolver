@@ -37,7 +37,7 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     print("Aantal moves:", aantal_moves)
     print("Opgelost in", int(tijd_gekost), "miliseconden!")
     
-    return moves_in_goede_move_vorm #, moves
+    return moves_in_goede_move_vorm, moves
 
 def geef_oplossing_comments(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))

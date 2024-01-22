@@ -18,6 +18,7 @@ class Gui:
     def __init__(self, cube: Cube):
         self.cube = cube
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.opgelost = False
 
     def run(self):
         self.draw_cube()
@@ -30,10 +31,14 @@ class Gui:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        solution = moves_naar_hussel(geef_oplossing(self.cube))
+                        moves_in_goede_vorm, moves = geef_oplossing(self.cube)
+                        solution = moves_naar_hussel(moves)
+                        print(solution)
                         for move in solution.split():
                             self.cube.do_moves(move)
                             self.draw_cube()
+                        self.opgelost = True
+        return self.opgelost
                             
 
         
@@ -60,3 +65,4 @@ class Gui:
                     pygame.draw.rect(self.screen, (0, 0, 0), (x, y, CUBIE_SIZE, CUBIE_SIZE), 5)
 
         pygame.display.update()
+    
