@@ -5,9 +5,9 @@ from oplosser import geef_oplossing
 from moveDecoder import hussel_naar_moves, moves_naar_communicatie, onnodig_weghalen
 from gui import Gui
 
-# def run_gui(cube):
-#     gui = Gui(cube)
-#     gui.run()
+def run_gui(cube):
+    gui = Gui(cube)
+    gui.run()
 
 cube = Cube(3)
 hussel_moves = input("Wat is de hussel? Voer in: ")
