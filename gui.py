@@ -8,6 +8,7 @@ from rubiks import Cube
 from move import Move
 from moveDecoder import hussel_naar_moves, moves_naar_hussel, onnodig_weghalen
 from oplosser import geef_oplossing
+from communicatie import verstuurMoves
 
 HEIGHT = 1440
 WIDTH = 2415
@@ -30,7 +31,10 @@ class Gui:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        solution = moves_naar_hussel(geef_oplossing(self.cube))
+                        com_solution, moves = geef_oplossing(self.cube)
+                        solution = moves_naar_hussel(moves)
+                        verstuurMoves(com_solution)
+                        print(solution)
                         for move in solution.split():
                             self.cube.do_moves(move)
                             self.draw_cube()

@@ -37,7 +37,7 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     print("Aantal moves:", aantal_moves)
     print("Opgelost in", int(tijd_gekost), "miliseconden!")
     
-    return moves_in_goede_move_vorm #, moves
+    return moves_in_goede_move_vorm, moves
 
 def geef_oplossing_comments(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
@@ -316,29 +316,29 @@ def PLL2(cube:Cube):
 
 
 
-cube = Cube(3)
-hussel_moves = input("Wat is de hussel? Voer in: ")
-# hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net - doet het nog niet
-# hussel_moves = "D L' F' D2 B' D' F' L' B2 R' F2 R' D2 R F2 L2 U2 L' B" #Deze doet het niet, nu wel
-# hussel_moves = "R' F R B' R' F' R B R' F R B' R' F' R B R' F R B' R' F' R B"
-# hussel_moves = "F R U R' U' R U R' U' R U R' U' F'" #DEBUGGER
-# hussel_moves = "D' R2 B' L2 R2 B' R2 F R2 B' R2 B2 U L2 B2 D L D R' B" #Deze doet het nog niet
-cube.do_moves(hussel_moves)
-# inverted_hussel = inverted_moves(hussel_naar_moves(hussel_moves))
-# print(inverted_hussel, "HIEEERRRR")
-# inverted_hussel_com = moves_naar_communicatie(inverted_hussel)
-# print(inverted_hussel_com)
+# cube = Cube(3)
+# hussel_moves = input("Wat is de hussel? Voer in: ")
+# # hussel_moves = "L2 U' D2 R F' R L2 B L U' R2 F2 B2 D F2 L2 B2 D2 L2" #hussel van cstimer.net - doet het nog niet
+# # hussel_moves = "D L' F' D2 B' D' F' L' B2 R' F2 R' D2 R F2 L2 U2 L' B" #Deze doet het niet, nu wel
+# # hussel_moves = "R' F R B' R' F' R B R' F R B' R' F' R B R' F R B' R' F' R B"
+# # hussel_moves = "F R U R' U' R U R' U' R U R' U' F'" #DEBUGGER
+# # hussel_moves = "D' R2 B' L2 R2 B' R2 F R2 B' R2 B2 U L2 B2 D L D R' B" #Deze doet het nog niet
+# cube.do_moves(hussel_moves)
+# # inverted_hussel = inverted_moves(hussel_naar_moves(hussel_moves))
+# # print(inverted_hussel, "HIEEERRRR")
+# # inverted_hussel_com = moves_naar_communicatie(inverted_hussel)
+# # print(inverted_hussel_com)
 
-cube.print_cube()
-print()
-print()
+# cube.print_cube()
+# print()
+# print()
 
-# # start = time.time()
-# geef_oplossing(cube)
-oplossing = geef_oplossing(cube)
-oplossing_korter = onnodig_weghalen(oplossing)
-print("Moves voor communicatie:", oplossing_korter)
-print(len(oplossing_korter))
+# # # start = time.time()
+# # geef_oplossing(cube)
+# oplossing = geef_oplossing(cube)
+# oplossing_korter = onnodig_weghalen(oplossing)
+# print("Moves voor communicatie:", oplossing_korter)
+# print(len(oplossing_korter))
 
 
 

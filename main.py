@@ -21,7 +21,7 @@ verstuurMoves(communicatie_moves_hussel)
 cube.print_cube()
 print()
 # time.sleep(2)
-oplossing_com = geef_oplossing(cube) #oplossing_com, oplossing_moves
+oplossing_com, moves = geef_oplossing(cube) #oplossing_com, oplossing_moves
 # oplossing_inverted = inverted_moves(oplossing_moves)
 # print(oplossing_inverted)
 # oplossing_inverted_com = moves_naar_communicatie(oplossing_inverted)
