@@ -27,7 +27,7 @@ class Cube:
 
         self.do_moves(moves) #Doet de moves om een edge naar de UPFRONT positie te krijgen zodat hij kan worden uitgelezen
         info = Edge({                                   #geeft Edge de kleur van de edge piece. Piece[0] is op de bovenste(U) zijde  op plaats -1, 1, en geeft die hun kleur. Zo kan bepaald worden hoe de edge eruit ziet
-            piece[0]: Colour(self.faces["U"][-1][1]),
+            piece[0]: Colour(self.faces["U"][2][1]),
             piece[1]: Colour(self.faces["F"][0][1])
         })
         moveDecoder.inverted_moves(moves) #Doet de moves terug zodat de cube onveranderd blijft
@@ -38,8 +38,8 @@ class Cube:
         
         self.do_moves(moves)
         info = Corner({
-            piece[0]: Colour(self.faces["U"][-1][-1]),
-            piece[1]: Colour(self.faces["F"][0][-1]),
+            piece[0]: Colour(self.faces["U"][2][2]),
+            piece[1]: Colour(self.faces["F"][0][2]),
             piece[2]: Colour(self.faces["R"][0][0])
         })
         moveDecoder.inverted_moves(moves)
@@ -120,7 +120,7 @@ class Cube:
             for _ in range(3):
                 self.draai_face("D")        #????????????????????
 
-    def print_cube(self):
+    def print_cube(self): #GOEDE WOORDEN
         unfolded_order = [("U", (0, 1)), ("L", (1, 0)), ("F", (1, 1)), ("R", (1, 2)), ("B", (1, 3)), ("D", (2, 1))]
         
         unfolded_cube = [["     " for _ in range(12)] for _ in range(9)]

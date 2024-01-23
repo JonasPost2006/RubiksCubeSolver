@@ -81,9 +81,3 @@ def onnodig_weghalen(moves):
     moves = re.sub(r'([A-Z])\1{2}', lambda m: m.group(1).lower(), moves) #Precies tegenovergestelde hierboven
 
     return moves
-    
-
-if __name__ == "__main__": #Nog ff checken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    hussel = "L U2 D B' R2 U2 F R B2 U2 R2 U R2 U2 F2 D R2 D F2"
-
-    print(hussel_naar_moves(hussel))
