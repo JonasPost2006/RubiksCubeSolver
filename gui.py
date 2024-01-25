@@ -3,6 +3,7 @@ import time
 
 import pygame
 from pygame.locals import *
+pygame.init()
 
 from rubiks import Cube
 from move import Move
@@ -14,6 +15,13 @@ HEIGHT = 1440
 WIDTH = 2415
 CUBIE_SIZE = 115
 HORIZONTAL_START = 30
+
+invoer = ''
+font = pygame.font.SysFont('frenchscript',40)
+hussel_box = pygame.Rect(75,75,100,50)
+active = False
+kleur = pygame.Color('purple')
+clock = pygame.time.Clock()
 
 class Gui:
     def __init__(self, cube: Cube):
@@ -29,7 +37,19 @@ class Gui:
                 if event.type == pygame.QUIT:
                     running = False
 
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if hussel_box.collidepoint(event.pos):
+                        active = True
+                    else:
+                        active = False
+
                 if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_BACKSPACE:
+                            invoer = invoer[:-1]
+                        else:
+                            invoer += event.unicode
+
                     if event.key == pygame.K_SPACE:
                         com_solution, moves = geef_oplossing(self.cube)
                         solution = moves_naar_hussel(moves)
@@ -43,6 +63,17 @@ class Gui:
                             self.cube.do_moves(move)
                             self.draw_cube()
                             # time.sleep(0.01)
+                self.screen.fill('orange')
+                if active:
+                    kleur = pygame.Color('red')
+                else:
+                    kleur = pygame.Color('purple')
+                pygame.draw.rect(self.screen, kleur, hussel_box, 4)
+                surf = font.render(invoer,True,'orange')
+                self.screen.blit(surf, (hussel_box.x +5 , hussel_box.y +5))
+                self.text_box.w = max(100, surf.get_width()+10)
+                pygame.display.update()
+                clock.tick(50)
 
         pygame.quit()
 
