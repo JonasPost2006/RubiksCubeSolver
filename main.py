@@ -13,6 +13,9 @@ from gui import Gui
 cube = Cube(3)
 hussel_moves = input("Wat is de hussel? Voer in: ")
 cube.do_moves(hussel_moves)  # Apply the provided scramble
+cube.print_cube()
+print()
+print("JAJAJAJA")
 gui = Gui(cube)
 gui.run()
 hussel_moves_pc = hussel_naar_moves(hussel_moves)

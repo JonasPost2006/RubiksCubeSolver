@@ -7,7 +7,7 @@ pygame.init()
 
 from rubiks import Cube
 from move import Move
-from moveDecoder import hussel_naar_moves, moves_naar_hussel, onnodig_weghalen
+from moveDecoder import hussel_naar_moves, moves_naar_hussel, onnodig_weghalen, hussel_naar_communicatie
 from oplosser import geef_oplossing
 # from communicatie import verstuurMoves
 
@@ -16,21 +16,25 @@ WIDTH = 2415
 CUBIE_SIZE = 115
 HORIZONTAL_START = 30
 
-invoer = ''
-font = pygame.font.SysFont('frenchscript',40)
-hussel_box = pygame.Rect(75,75,100,50)
-active = False
-kleur = pygame.Color('purple')
+
+font = pygame.font.SysFont(None,40)
+kleur_uit = pygame.Color('lightskyblue3')
+kleur_aan = pygame.Color('dodgerblue2')
 clock = pygame.time.Clock()
 
 class Gui:
     def __init__(self, cube: Cube):
-        self.cube = cube
+        self.cube = Cube(3) #cube
         self.screen = pygame.display.set_mode((1920, 1080))
+        self.active = False
+        self.invoer = ''
+        self.hussel_box = pygame.Rect(50, 50, 140, 40)
+        self.kleur = kleur_uit
+        self.achtergrond_kleur = pygame.Color((30, 30, 30))
 
     def run(self):
+        self.screen.fill((30, 30, 30))
         self.draw_cube()
-
         running = True
         while running:
             for event in pygame.event.get():
@@ -38,42 +42,62 @@ class Gui:
                     running = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if hussel_box.collidepoint(event.pos):
-                        active = True
+                    if self.hussel_box.collidepoint(event.pos):
+                        self.active = not self.active
                     else:
-                        active = False
+                        self.active = False
+
+                    self.kleur = kleur_aan if self.active else kleur_uit
 
                 if event.type == pygame.KEYDOWN:
-                    if active:
-                        if event.key == pygame.K_BACKSPACE:
-                            invoer = invoer[:-1]
+                    if self.active:
+                        if event.key == pygame.K_RETURN:
+                            self.cube.do_moves(self.invoer)
+                            print(self.invoer)
+                            self.cube.print_cube()
+                            hussel_communicatie = hussel_naar_communicatie(self.invoer)
+                            print(hussel_communicatie)
+                            # verstuurMoves(hussel_communicatie)
+                            self.invoer = ''
+                            self.screen.fill((30, 30, 30))
+                            self.draw_cube()
+                        elif event.key == pygame.K_BACKSPACE:
+                            self.invoer = self.invoer[:-1]
+                            self.screen.fill((30, 30, 30))
+                            self.draw_cube()
                         else:
-                            invoer += event.unicode
+                            self.invoer += event.unicode
 
-                    if event.key == pygame.K_SPACE:
+                    elif event.key == pygame.K_SPACE:
                         com_solution, moves = geef_oplossing(self.cube)
                         solution = moves_naar_hussel(moves)
                         #ONNODIG WEGHALEN VAN SOLUTION
                         com_solution_verbeterd = onnodig_weghalen(com_solution)
+                        print("Oplossing:", com_solution_verbeterd)
+                        print("Aantal moves:", len(com_solution_verbeterd))
                         # verstuurMoves(com_solution)
-                        print(solution)
-                        print("HIEROVEN SOLUITION")
                         for move in solution.split():
-                            print(move)
                             self.cube.do_moves(move)
                             self.draw_cube()
                             # time.sleep(0.01)
-                self.screen.fill('orange')
-                if active:
-                    kleur = pygame.Color('red')
-                else:
-                    kleur = pygame.Color('purple')
-                pygame.draw.rect(self.screen, kleur, hussel_box, 4)
-                surf = font.render(invoer,True,'orange')
-                self.screen.blit(surf, (hussel_box.x +5 , hussel_box.y +5))
-                self.text_box.w = max(100, surf.get_width()+10)
-                pygame.display.update()
-                clock.tick(50)
+                    
+                    elif event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+
+  
+
+                surf = font.render(self.invoer, True, self.kleur)
+                
+                width = max(200, surf.get_width() + 10)
+                self.hussel_box.w = width
+                
+                self.screen.blit(surf, (self.hussel_box.x + 5 , self.hussel_box.y + 5))
+                
+                pygame.draw.rect(self.screen, self.kleur, self.hussel_box, 4)
+                
+                # pygame.display.update()
+                pygame.display.flip()
+                clock.tick(30)
 
         pygame.quit()
 

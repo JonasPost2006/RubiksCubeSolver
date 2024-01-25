@@ -1,25 +1,25 @@
-    def draw_cube(self):
-        for face_num, face in enumerate(["U", "F", "D", "B", "L", "R"]):
-            for row_num, row in enumerate(self.cube.faces[face]):
-                for cubie_num, cubie in enumerate(row):
-                    if face == "L":
-                        face_num = 1
-                        horizontal_adjust = - self.cube.size * CUBIE_SIZE
-                    elif face == "R":
-                        face_num = 1
-                        horizontal_adjust = self.cube.size * CUBIE_SIZE
-                    elif face == "B":
-                        face_num = 1
-                        horizontal_adjust = 2 * self.cube.size * CUBIE_SIZE
-                    else:
-                        horizontal_adjust = 0
+import re
 
-                    x = 1920 / 3 + cubie_num * CUBIE_SIZE + horizontal_adjust
-                    y = self.cube.size * face_num * CUBIE_SIZE + row_num * CUBIE_SIZE + HORIZONTAL_START
+def onnodig_weghalen(moves):
+    moves = re.sub(r'(.)\1{3}', '', moves) #Haal vier opeenvolgende tekens weg, want dat staat gelijk aan niks
+    moves = re.sub(r'([a-z])\1{2}', lambda m: m.group(1).upper(), moves) #Verandert drie opeenvolgende kleine letters in 1 hoofdletter
+    moves = re.sub(r'([A-Z])\1{2}', lambda m: m.group(1).lower(), moves) #Precies tegenovergestelde hierboven
+    
+    #Haalt twee tekens weg als de eerste een hoofdletter was, en de volgende een kleine letter van dezelfde letter
+    result = []
+    i = 0
+    while i < len(moves):
+        if i < len(moves) - 1 and ((moves[i].isupper() and moves[i+1].islower()) or (moves[i].islower() and moves[i+1].isupper())) and moves[i].swapcase() == moves[i+1]:
+            i += 2  # Skip both uppercase and lowercase letters of the same kind
+        else:
+            result.append(moves[i])
+            i += 1
 
-                    color = (255, 255, 255) if cubie == 1 else (0, 0, 0)  # Set color based on cubie value (1 or 0)
+    return ''.join(result)
 
-                    pygame.draw.rect(self.screen, color, (x, y, CUBIE_SIZE, CUBIE_SIZE), 0)
-                    pygame.draw.rect(self.screen, (0, 0, 0), (x, y, CUBIE_SIZE, CUBIE_SIZE), 5)
+    # return moves
 
-        pygame.display.update()
+# Test case
+moves = "RUulDddD" 
+result = onnodig_weghalen(moves)
+print(result)

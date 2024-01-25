@@ -12,15 +12,16 @@ from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communi
 def geef_oplossing(cube: Cube) -> List[Move]:
     kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
     print("Status na hussel: ")
+    kopie_cube.print_cube()
     start = time.time()
 
-    kopie_cube.print_cube()
+    # kopie_cube.print_cube()
     witte_kruis(kopie_cube)
     witte_hoekjes(kopie_cube)
     middelste_laag(kopie_cube)
     OLL1(kopie_cube)
-    OLL2(kopie_cube, False)
-    PLL1(kopie_cube, False)
+    OLL2(kopie_cube, True)
+    PLL1(kopie_cube, True)
     PLL2(kopie_cube)
 
     end = time.time()
@@ -194,7 +195,9 @@ def OLL2(cube:Cube, printen):
         "kruis_headlights": "F R U R' U' R U R' U' R U R' U' F'",
         "kruis_zijkant": "U R U2 R2 U' R2 U' R2 U2 R", #U R U2 R2 U' R2 U' R2 U2 R
         "hamer_headlights": "R2 D R' U2 R D' R' U2 R'",
-        "hamer_zijkant": "L F R' F' L' F R F'"
+        "hamer_zijkant": "U L F R' F' L' F R F'",
+        "Headlights": "R2 D' R U2 R' D R U2 R",
+        "Sidebars": "U' L F R' F' L' F R F'"
     }
 
     def bovenste_laag_hoekjes(cube: Cube):
@@ -206,15 +209,15 @@ def OLL2(cube:Cube, printen):
     for _ in range(4):
         hoekjes = status_bovenste_laag_hoekjes(bovenste_laag_hoekjes(cube))
         # print("Hier: ")
-        # print(hoekjes)
 
-        if hoekjes == [False, False, True, False]:
-            if cube.get_sticker("LUF") == YELLOW:
-                cube.do_moves(VORM_GELE_VLAK["vis_links"])
-                if printen == True:
-                    print("Vis links")
-            else:
+        if hoekjes == [False, False, False, True]:
+            # print(cube.get_sticker("LUF"))
+            if cube.get_sticker("FRU") == YELLOW:
                 cube.do_moves(VORM_GELE_VLAK["vis_rechts"])
+                if printen == True:
+                    print("Vis rechts")
+            else:
+                cube.do_moves(VORM_GELE_VLAK["vis_links"])
                 if printen == True:
                     print("Vis rechts")
             break
@@ -248,23 +251,34 @@ def OLL2(cube:Cube, printen):
                     print("Kruis zijkant")
             break
 
-        elif hoekjes == [True, True, False, False]:
-            if cube.get_sticker("LUF") == YELLOW and cube.get_sticker("FUR") == YELLOW:
-                cube.do_moves(VORM_GELE_VLAK["hamer_headlights"])
-                if printen == True:
-                    print("Hamer headlights")
+        # elif hoekjes == [True, True, False, False]:
+        elif hoekjes == [False, False, True, True]:
+            # print(cube.get_sticker("BRU"))
+            # print("BJLALALALKALALALALKJFDSJKLFSDJKLFJL")
+            if cube.get_sticker("BRU") == YELLOW:
+                cube.do_moves(VORM_GELE_VLAK["Headlights"])
             else:
-                cube.do_moves("U")
-                cube.do_moves(VORM_GELE_VLAK["hamer_zijkant"])
-                if printen == True:
-                    print("Hamer zijkant")
+                cube.do_moves(VORM_GELE_VLAK["Sidebars"])
             break
+
+            # if cube.get_sticker("LUF") == YELLOW and cube.get_sticker("FUR") == YELLOW:
+            #     cube.do_moves(VORM_GELE_VLAK["hamer_headlights"])
+            #     if printen == True:
+            #         print("Hamer headlights")
+            # else:
+            #     cube.do_moves("U")
+            #     cube.do_moves(VORM_GELE_VLAK["hamer_zijkant"])
+            #     if printen == True:
+            #         print("Hamer zijkant")
+            # break
 
         else:
             cube.do_moves("U")
 
 def PLL1(cube:Cube, printen):    #https://jperm.net/algs/2lookpll
     for _ in range(4):
+        print("")
+        cube.print_cube()
         if cube.get_sticker("FUR") == cube.get_sticker("LUF") and cube.get_sticker("BLU") == cube.get_sticker("BRU"):
             break
         
@@ -272,6 +286,7 @@ def PLL1(cube:Cube, printen):    #https://jperm.net/algs/2lookpll
             cube.do_moves("U R U R' U' R' F R2 U' R' U' R U R' F'")
             if printen == True:
                     print("PLL1 Diagonaal")
+                    cube.print_cube()
             break
         
         cube.do_moves("U")
@@ -281,6 +296,19 @@ def PLL1(cube:Cube, printen):    #https://jperm.net/algs/2lookpll
         if printen == True:
                     print("PLL1 Headlights")
 
+# def PLL12(cube:Cube, printen):
+#     alg = "R' U L' U2 R U' R' U2 R L "
+
+#     for _ in range(4):
+#         if cube.get_sticker("FUR") == cube.get_sticker("FUL") and cube.get_sticker("BLU") == cube.get_sticker("BRU"):
+#             break
+
+#         if cube.get_sticker("FRU") == cube.get_sticker("FLU"):
+#             cube.do_moves(alg)
+#             break
+#         cube.do_moves("U")
+#     else:
+#         cube.do_moves(alg + " U " + alg)
 
 def PLL2(cube:Cube):
     opgelost = 0
@@ -289,8 +317,6 @@ def PLL2(cube:Cube):
         if cube.get_sticker("FUR") == cube.get_sticker("FU"):
             opgelost += 1
         cube.do_moves("U")
-        print("HIER")
-        cube.print_cube()
         # print(opgelost)
     
     if opgelost != 4:
@@ -337,7 +363,7 @@ def PLL2(cube:Cube):
 
 # # # start = time.time()
 # # geef_oplossing(cube)
-# oplossing = geef_oplossing(cube)
+# oplossing, moves = geef_oplossing(cube)
 # oplossing_korter = onnodig_weghalen(oplossing)
 # print("Moves voor communicatie:", oplossing_korter)
 # print(len(oplossing_korter))
