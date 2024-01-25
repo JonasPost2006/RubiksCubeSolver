@@ -8,17 +8,17 @@ from rubiks import Cube
 from move import Move
 from moveDecoder import hussel_naar_moves, moves_naar_hussel, onnodig_weghalen
 from oplosser import geef_oplossing
-from communicatie import verstuurMoves
+# from communicatie import verstuurMoves
 
 HEIGHT = 1440
 WIDTH = 2415
-CUBIE_SIZE = 125
-HORIZONTAL_START = 100
+CUBIE_SIZE = 115
+HORIZONTAL_START = 30
 
 class Gui:
     def __init__(self, cube: Cube):
         self.cube = cube
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pygame.display.set_mode((1920, 1080))
 
     def run(self):
         self.draw_cube()
@@ -33,9 +33,13 @@ class Gui:
                     if event.key == pygame.K_SPACE:
                         com_solution, moves = geef_oplossing(self.cube)
                         solution = moves_naar_hussel(moves)
-                        verstuurMoves(com_solution)
+                        #ONNODIG WEGHALEN VAN SOLUTION
+                        com_solution_verbeterd = onnodig_weghalen(com_solution)
+                        # verstuurMoves(com_solution)
                         print(solution)
+                        print("HIEROVEN SOLUITION")
                         for move in solution.split():
+                            print(move)
                             self.cube.do_moves(move)
                             self.draw_cube()
                             # time.sleep(0.01)
@@ -58,7 +62,7 @@ class Gui:
                     else:
                         horizontal_adjust = 0
                         
-                    x = WIDTH / 3 + cubie_num * CUBIE_SIZE + horizontal_adjust
+                    x = 1920 / 3 + cubie_num * CUBIE_SIZE + horizontal_adjust
                     y = self.cube.size * face_num * CUBIE_SIZE + row_num * CUBIE_SIZE + HORIZONTAL_START
                     
                     pygame.draw.rect(self.screen, cubie, (x, y, CUBIE_SIZE, CUBIE_SIZE), 0)

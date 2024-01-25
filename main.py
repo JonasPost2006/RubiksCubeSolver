@@ -1,6 +1,6 @@
 import re
 from rubiks import Cube
-from communicatie import verstuurHussel, verstuurMoves
+# from communicatie import verstuurHussel, verstuurMoves
 from oplosser import geef_oplossing
 from moveDecoder import hussel_naar_moves, moves_naar_communicatie, inverted_moves, onnodig_weghalen
 from gui import Gui
@@ -17,7 +17,7 @@ gui = Gui(cube)
 gui.run()
 hussel_moves_pc = hussel_naar_moves(hussel_moves)
 communicatie_moves_hussel = moves_naar_communicatie(hussel_moves_pc)
-verstuurMoves(communicatie_moves_hussel)
+# verstuurMoves(communicatie_moves_hussel)
 cube.print_cube()
 print()
 # time.sleep(2)

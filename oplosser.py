@@ -289,6 +289,8 @@ def PLL2(cube:Cube):
         if cube.get_sticker("FUR") == cube.get_sticker("FU"):
             opgelost += 1
         cube.do_moves("U")
+        print("HIER")
+        cube.print_cube()
         # print(opgelost)
     
     if opgelost != 4:
