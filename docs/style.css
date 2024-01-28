@@ -172,6 +172,27 @@ section.home{
     
 }
 
+.rounded-box {
+    position: absolute;
+    top: 150px; /* Adjust the top position based on your layout */
+    left: 40px; /* Adjust the left position based on your layout */
+    width: 450px; /* Adjust the width based on your layout */
+    /* text-align: center; */
+    background-color: rgba(31, 98, 142, 0.9);
+    border-radius: 25px;
+    padding: 10px; /* Adjust the padding based on your layout */
+    padding-left: 30px;
+    color: white;
+}
+
+.rounded-box h3 {
+    margin: 0; /* Remove default margin for h3 */
+}
+
+.ontwerp-tekst {
+    font-weight: bold;
+}
+
 footer {
     text-align: center;
     padding: 7px;
