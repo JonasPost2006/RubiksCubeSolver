@@ -96,7 +96,7 @@ section {
     background-color: #12232E;
 }
 
-section.image img {
+.bgimg{
     width: 100%;
     height: 100%;
     filter: brightness(0.3);
@@ -187,6 +187,15 @@ section.home{
 
 .rounded-box h3 {
     margin: 0; /* Remove default margin for h3 */
+}
+
+.kleinefoto {
+    position: absolute;
+    top: 150px;
+    left: 700px;
+    width: 400px;
+    border-radius: 30px;
+    /* height: auto; */
 }
 
 .ontwerp-tekst {
