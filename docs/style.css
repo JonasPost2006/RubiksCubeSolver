@@ -172,7 +172,7 @@ section.home{
     
 }
 
-.rounded-box {
+.rounded-box-ontwerp {
     position: absolute;
     top: 150px; /* Adjust the top position based on your layout */
     left: 40px; /* Adjust the left position based on your layout */
@@ -185,28 +185,111 @@ section.home{
     color: white;
 }
 
+.rounded-box-bouwen {
+    position: absolute;
+    top: 350px; /* Adjust the top position based on your layout */
+    left: 400px; /* Adjust the left position based on your layout */
+    width: 450px; /* Adjust the width based on your layout */
+    /* text-align: center; */
+    background-color: rgba(31, 98, 142, 0.9);
+    border-radius: 25px;
+    padding: 20px; /* Adjust the padding based on your layout */
+    padding-left: 30px;
+    color: white;
+}
+
 .rounded-box h3 {
     margin: 0; /* Remove default margin for h3 */
 }
 
 .tekstdoorsnede {
+    font-weight: bold;
     color: white;
     position: absolute;
     top: 500px;
-    left: 800px;
+    left: 820px;
     
 }
 
 .fotodoorsnede {
     position: absolute;
     top: 150px;
-    left: 700px;
+    left: 710px;
     width: 400px;
     border-radius: 30px;
     /* height: auto; */
 }
 
+.fotorobot {
+    position: absolute;
+    top: 150px;
+    left: 1300px;
+    width: 360px;
+    border-radius: 30px;
+    /* height: auto; */
+}
+
+.tekstrobot {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 560px;
+    left: 1375px;
+}
+
+.fotozijkanten {
+    position: absolute;
+    top: 490px;
+    left: 70px;
+    width: 450px;
+    border-radius: 30px;
+}
+
+.tekstzijkanten {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 900px;
+    left: 175px;
+}
+
+.fotopsu {
+    position: absolute;
+    top: 620px;
+    left: 1275px;
+    width: 400px;
+    border-radius: 30px;
+}
+
+.tekstpsu {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 900px;
+    left: 1390px;
+}
+
+.foto3D {
+    position: absolute;
+    top: 560px;
+    left: 700px;
+    width: 460px;
+    border-radius: 30px;
+}
+
+.tekst3D {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 900px;
+    left: 840px;
+}
+
 .ontwerp-tekst {
+    font-weight: bold;
+}
+
+.bouwen-tekst {
     font-weight: bold;
 }
 
