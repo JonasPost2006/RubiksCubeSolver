@@ -189,7 +189,15 @@ section.home{
     margin: 0; /* Remove default margin for h3 */
 }
 
-.kleinefoto {
+.tekstdoorsnede {
+    color: white;
+    position: absolute;
+    top: 500px;
+    left: 800px;
+    
+}
+
+.fotodoorsnede {
     position: absolute;
     top: 150px;
     left: 700px;

@@ -11,34 +11,34 @@ from gui import Gui
 # hussel = "D' R' F R' U' L' D2 R' F' D2 B R2 F' D2 B2 R2 B R2"
 
 cube = Cube(3)
-hussel_moves = input("Wat is de hussel? Voer in: ")
-cube.do_moves(hussel_moves)  # Apply the provided scramble
-cube.print_cube()
+# hussel_moves = input("Wat is de hussel? Voer in: ")
+# cube.do_moves(hussel_moves)  # Apply the provided scramble
+# cube.print_cube()
 print()
-print("JAJAJAJA")
+# print("JAJAJAJA")
 gui = Gui(cube)
 gui.run()
-hussel_moves_pc = hussel_naar_moves(hussel_moves)
-communicatie_moves_hussel = moves_naar_communicatie(hussel_moves_pc)
+# hussel_moves_pc = hussel_naar_moves(hussel_moves)
+# communicatie_moves_hussel = moves_naar_communicatie(hussel_moves_pc)
 # verstuurMoves(communicatie_moves_hussel)
-cube.print_cube()
-print()
+# cube.print_cube()
+# print()
 # time.sleep(2)
-oplossing_com, moves = geef_oplossing(cube) #oplossing_com, oplossing_moves
+# oplossing_com, moves = geef_oplossing(cube) #oplossing_com, oplossing_moves
 # oplossing_inverted = inverted_moves(oplossing_moves)
 # print(oplossing_inverted)
 # oplossing_inverted_com = moves_naar_communicatie(oplossing_inverted)
 # print(oplossing_inverted_com)
 # oplossing_inverted = oplossing[::-1]
 # print(oplossing_inverted)
-oplossing_com_verbeterd = onnodig_weghalen(oplossing_com)
+# oplossing_com_verbeterd = onnodig_weghalen(oplossing_com)
 # print(oplossing_com, "VOOR TEENSY Onverbeterd", len(oplossing_com))
 # print(oplossing_com_verbeterd, "VERBETERD", len(oplossing_com_verbeterd))
-invoer = input("Mag hij oplossen? y voor doorgaan.")
-if invoer == "y":
-    verstuurMoves(oplossing_com_verbeterd)
-    print("Moves:", oplossing_com_verbeterd)
-    print("Aantal moves:", len(oplossing_com_verbeterd))
+# invoer = input("Mag hij oplossen? y voor doorgaan.")
+# if invoer == "y":
+#     verstuurMoves(oplossing_com_verbeterd)
+#     print("Moves:", oplossing_com_verbeterd)
+#     print("Aantal moves:", len(oplossing_com_verbeterd))
 
 # invoer2 = input("Mag hij oplossing terug doen? y om door te gaan.")
 # if invoer == "y":

@@ -7,9 +7,9 @@ pygame.init()
 
 from rubiks import Cube
 from move import Move
-from moveDecoder import hussel_naar_moves, moves_naar_hussel, onnodig_weghalen, hussel_naar_communicatie
+from moveDecoder import hussel_naar_moves, moves_naar_hussel, onnodig_weghalen, hussel_naar_communicatie, moves_naar_communicatie
 from oplosser import geef_oplossing
-# from communicatie import verstuurMoves
+from communicatie import verstuurMoves
 
 HEIGHT = 1440
 WIDTH = 2415
@@ -51,13 +51,16 @@ class Gui:
 
                 if event.type == pygame.KEYDOWN:
                     if self.active:
+                        self.screen.fill((30, 30, 30))
+                        self.draw_cube()
                         if event.key == pygame.K_RETURN:
                             self.cube.do_moves(self.invoer)
                             print(self.invoer)
                             self.cube.print_cube()
-                            hussel_communicatie = hussel_naar_communicatie(self.invoer)
-                            print(hussel_communicatie)
-                            # verstuurMoves(hussel_communicatie)
+                            hussel_move_vorm = hussel_naar_moves(self.invoer)
+                            hussel_communicatie = moves_naar_communicatie(hussel_move_vorm)
+                            print("HIER HUSSEL COM", hussel_communicatie)
+                            verstuurMoves(hussel_communicatie)
                             self.invoer = ''
                             self.screen.fill((30, 30, 30))
                             self.draw_cube()
@@ -75,11 +78,11 @@ class Gui:
                         com_solution_verbeterd = onnodig_weghalen(com_solution)
                         print("Oplossing:", com_solution_verbeterd)
                         print("Aantal moves:", len(com_solution_verbeterd))
-                        # verstuurMoves(com_solution)
+                        verstuurMoves(com_solution_verbeterd)
                         for move in solution.split():
                             self.cube.do_moves(move)
                             self.draw_cube()
-                            # time.sleep(0.01)
+                            # time.sleep(0.075)
                     
                     elif event.key == pygame.K_ESCAPE:
                         pygame.quit()
