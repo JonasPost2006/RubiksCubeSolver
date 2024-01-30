@@ -108,7 +108,6 @@ def witte_kruis(cube: movesGedaan):
                 
                 cube.do_moves("D")
                 break
-    # cube.do_moves("D2")
 
 def witte_hoekjes(cube:Cube):
     HOEKJES = {

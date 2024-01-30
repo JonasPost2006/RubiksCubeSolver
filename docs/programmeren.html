@@ -9,60 +9,60 @@
 </head>
 
 <body>
-    <header>
-        <a href="index.html">
-            <h1>Rubik's Cube Solver Robot</h1>
-        </a>
-    </header>
-
-    <nav>
-        <a href="ontwerp.html">Ontwerp</a>
-        <a href="bouwen.html">Bouwen</a>
-        <a href="programmeren.html" class="active">Programmeren</a>
-        <a href="media.html">Media</a>
-    </nav>
-
     <main>
-        <section id="design">
-            <h2>About Designing the Robot</h2>
-            <p>
-                Add content about the design phase of your Rubik's Cube solver project.
-            </p>
-        </section>
+        <section class="image" id="image">
+            
+            <header>
+                <a href="index.html">
+                    <h1>Rubik's Cube Solver Robot</h1>
+                </a>
+            </header>
+        
+            <nav>
+                <a href="ontwerp.html">Ontwerp</a>
+                <a href="bouwen.html">Bouwen</a>
+                <a class="active" href="programmeren.html">Programmeren</a>
+                <a href="media.html">Media</a>
+            </nav>
+            <img class="bgimg" src="images/code.PNG" alt="Main image" width="100%">
+            <div class="rounded-box-programmeren">
+                <h3>Programmeren</h3>
+                <p class="programmeren-tekst">
+                    Het programmeren van de robot is het lastigste deel van het project geweest. Het programmeren bestond voornamelijk uit drie hoofdonderdelen: Teensy programmeren, het algoritme om de kubus op te lossen en de GUI(Graphical User Interface) maken. 
+                    <br><br>
+                    Bij het programmeren hebben we voornamelijk gebruik gemaakt van Python, maar ook een variant van C++ voor het programmeren van de Teensy met de Arduino IDE.  
+                    <br><br>
+                    <b>Teensy programmeren</b>
+                    <br>
+                    Het programmeren van de Teensy was redelijk simpel. Het enige wat de Teensy hoefde te doen was inkomende data inlezen, en die uit te voeren door de juiste motoren aan te sturen. De inkomende data zou de oplossing zijn die via USB binnenkomt vanaf de laptop.
+                    <br><br>
+                    <b>Het algoritme</b>
+                    <br>
+                    Het algoritme programmeren was niet gemakkelijk, maar wel heel interessant om te doen. Het omzetten van de algoritmes die wij zelf gebruiken, naar code voor een virtuele Rubik's Cube was hierbij de grootste uitdaging. Om dit te doen heb ik veel video's van mezelf gemaakt, terwijl ik een bepaald algoritme uitvoer. Dit, plus de stappen opschrijven op papier is een grote hulp geweest.
+                    <br><br>
+                    <b>De GUI</b>
+                    <br>
+                    Voor het maken van de interface hebben we gebruik gemaakt van de pygame-library. Hiermee konden we de status van de cube laten zien. Je kan in de interface een aantal moves invullen. De virtuele cube verandert dan zijn kleuren, waarna de moves ook naar de robot worden gestuurd. Zo is de echte cube gelijk aan de virtuele cube. Als er vervolgens op de spatiebalk wordt gedrukt, wordt de oplossing binnen ongeveer 20ms uitgevonden, en naar de robot verstuurd.
+                    <br>
+                    Het gemiddelde aantal moves ligt rond de 100.
 
-        <section id="materials">
-            <h2>About Materials</h2>
-            <p>
-                Add content about the materials used in your Rubik's Cube solver project.
-                
-            </p>
-        </section>
 
-        <section id="building">
-            <h2>About Building the Robot</h2>
-            <p>
-                Add content about the construction or assembly phase of your Rubik's Cube solver project.
-            </p>
-        </section>
-
-        <section id="programming">
-            <h2>About Programming the Robot</h2>
-            <p>
-                Add content about the programming aspects of your Rubik's Cube solver project.
-            </p>
-        </section>
-
-        <section id="algorithms">
-            <h2>About Algorithms Used</h2>
-            <p>
-                Add content about the algorithms employed in your Rubik's Cube solver project.
-            </p>
-        </section>
+                </p>
+            </div>
+            <img class="fotogui" src="images/gui.PNG" alt="gui">
+            <p class="tekstgui">Opname van de GUI</p>
+            <img class="fotoguihussel" src="images/guihussel.png" alt="guihussel">
+            <p class="tekstguihussel">Voorbeeld van een ingevoerde hussel</p>
+            <img class="Clogo" src="images/C++LOGO.svg.png" alt="C++">
+            <p class="tekstC">C++</p>
+            <img class="pythonlogo" src="images/PythonLOGO.svg.png" alt="Python">
+            <p class="tekstpython">Python</p>
+        </section>        
     </main>
 
-    <footer>
+    <!-- <footer>
         <p>&copy; 2024 Anuar Behari en Jonas Post. All rights reserved.</p>
-    </footer>
+    </footer> -->
 </body>
 
 </html>
