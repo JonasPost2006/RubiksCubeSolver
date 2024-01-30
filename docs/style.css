@@ -96,9 +96,13 @@ section {
     background-color: #12232E;
 }
 
+#link {
+    color: rgb(255, 191, 0);
+}
+
 .bgimg{
     width: 100%;
-    height: 100%;
+    height: auto;
     filter: brightness(0.3);
 }
 
@@ -187,8 +191,21 @@ section.home{
 
 .rounded-box-bouwen {
     position: absolute;
-    top: 350px; /* Adjust the top position based on your layout */
-    left: 400px; /* Adjust the left position based on your layout */
+    top: 150px; /* Adjust the top position based on your layout */
+    left: 200px; /* Adjust the left position based on your layout */
+    width: 450px; /* Adjust the width based on your layout */
+    /* text-align: center; */
+    background-color: rgba(31, 98, 142, 0.9);
+    border-radius: 25px;
+    padding: 20px; /* Adjust the padding based on your layout */
+    padding-left: 30px;
+    color: white;
+}
+
+.rounded-box-bouwen2 {
+    position: absolute;
+    top: 850px; /* Adjust the top position based on your layout */
+    left: 200px; /* Adjust the left position based on your layout */
     width: 450px; /* Adjust the width based on your layout */
     /* text-align: center; */
     background-color: rgba(31, 98, 142, 0.9);
@@ -297,6 +314,57 @@ section.home{
     position: absolute;
     top: 900px;
     left: 840px;
+}
+
+.fotoaansluitingen {
+    position: absolute;
+    top: 0px;
+    left: 750px;
+    width: 600px;
+    border-radius: 30px;
+}
+
+.tekstaansluitingen {
+    /* font-size: small; */
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 430px;
+    left: 1000px;
+    width: 500px;
+}
+
+.fotosoldeerbord {
+    position: absolute;
+    top: 340px;
+    left: 750px;
+    width: 600px;
+    border-radius: 30px;
+}
+
+.tekstsoldeerbord {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 840px;
+    left: 1200px;
+}
+
+.fotorobot1zijde {
+    position: absolute;
+    top: 900px;
+    left: 850px;
+    width: 300px;
+    border-radius: 30px;
+}
+
+.fotorobotnietaf {
+    position: absolute;
+    top: 900px;
+    left: 1200px;
+    height: 400px;
+    border-radius: 30px;
 }
 
 .ontwerp-tekst {

@@ -24,7 +24,7 @@
                 <a href="programmeren.html">Programmeren</a>
                 <a href="media.html">Media</a>
             </nav>
-            <img class="bgimg" src="Rubik's-solver.jpeg" alt="Main image" width="100%">
+            <img class="bgimg" src="solderen.jpg" alt="Main image" width="100%">
             <div class="rounded-box-bouwen">
                 <h3>Bouwen - ONDERDELEN</h3>
                 <p class="bouwen-tekst">
@@ -32,22 +32,55 @@
                     <br><br>
                     Na het bouwen zijn we begonnen met de electronica. Denk hierbij aan het aansluiten van de motoren en de drivers, aan de microcomputer die alles aanstuurt. Dit was op verscheidene vlakken een uitdaging omdat wij nog geen ervaring hadden met het aansluiten van motoren en hun drivers.
                     <br><br>
-                    Materiaal:
-                        <li>Soldeerstation</li>
-                        <li>Kleine tang</li>
-                        <li>Inbussleutels</li>
-                        <li>3D printer</li>
-                        <li>2 componentenlijm</li>
+                    <b>Materiaal:</b>
+                    <li>Soldeerstation</li>
+                    <li>Kleine tang</li>
+                    <li>Inbussleutels</li>
+                    <li>3D printer</li>
+                    <li>2 componentenlijm</li>
+                    <li>Verschillende moertjes en boutjes - M2.5 & M3</li>
+                    <li>Schroeven</li>
+                    <li>Houten plank</li>
                     <br>
-                    Onderdelen:
-                    <li>Nema17 motoren --- link</li>
-                    <li>TMC2208 motor drivers --- link</li>
-                    <li>Magneten 8 x 3mm --- link</li>
-                    <li>Teensy 4.1 --- link</li>
+                    <b>Onderdelen:</b>
+                    <li><a id="link" href="https://www.tinytronics.nl/shop/nl/mechanica-en-actuatoren/motoren/stappenmotoren/stappenmotor-0.41n.m-1.7a-nema17-jst-ph-connector">Nema 17 motoren</a></li>
+                    <li><a id="link" href="https://www.tinytronics.nl/shop/nl/mechanica-en-actuatoren/motoraansturingen-en-drivers/stappen-motoraansturingen-en-drivers/tmc2208-motor-driver-module">TMC2208 motor drivers</a></li>
+                    <li><a id="link" href="https://www.drifted.nl/en/set-screw-m3x5mm-6.html">Setscrews (voor de centercaps)</a></li>
+                    <li><a id="link" href="https://www.magnetenspecialist.nl/winkel/schijfmagneten/schijfmagneet-8-x-3-mm/">8x Magneten 8 x 3mm</a></li>
+                    <li><a id="link" href="https://www.tinytronics.nl/shop/nl/development-boards/microcontroller-boards/teensy/teensy-4.1">Teensy 4.1</a></li>
+                    <li><a id="link" href="https://www.tinytronics.nl/shop/en/power/power-supplies/12v/mean-well-power-supply-12v-12.5a-switching-power-supply-lrs-150-12">Power supply - 12V - 12.5A</a></li>
+                    <li><a id="link" href="https://www.tinytronics.nl/shop/nl/kabels-en-connectoren/kabels-en-adapters/jst-compatible/kabel-voor-stappenmotor-4-pin-jst-xh-naar-6-pin-jst-ph-motoraansluiting-60cm">6x Kabels voor motoren</a></li>
+                    <li><a id="link" href="https://www.tinytronics.nl/shop/nl/kabels-en-connectoren/connectoren/jst-compatible/jst-xh-3p-compatible-printplaatconnector-male-90-1-1-1">6x Printplaatconnector voor kabel</a></li>
                     
 
                 </p>
+                <img class="fotoaansluitingen" src="aansluitingen-drivermotor.webp" alt="aansluitingen-drivermotor">
+                <img class="fotosoldeerbord" src="soldeerbord3.png" alt="soldeerbord">
             </div>
+            <p class="tekstaansluitingen">Schematische tekening van de aansluiting van de motor, drivers en Teensy (i.p.v. Arduino)</p>
+            <p class="tekstsoldeerbord">Ons soldeerbord</p>
+            <div class="rounded-box-bouwen2">
+                <h3>Proces kort uigelegd</h3>
+                <p class="bouwen-tekst">
+                    <b>Stap 1:</b> 
+                    <br>
+                    Print alle onderdelen uit, en zet ze in elkaar met behulp van de moeren en bouten, magneten voor de bovenkant en schroeven om het in een plank vast te zetten.
+                    <br><br>
+                    <b>Stap 2:</b>
+                    <br>
+                    Test voordat je begint met het solderen van de drivers, eerst of je aansluitingen goed zijn door het op een breadboard te proberen. Als dit werkt, kan je beginnen met alle zes de drivers en hun connectors te solderen op een printplaat.
+                    <br>
+                    <br>
+                    <b>Stap 3:</b>
+                    Verbind de power supply met de drivers op de printplaat, en soldeer de Teensy vast. Maak de laatste verbindingen als op het schema te zien is. Als alles het doet zet je voor de veiligheid de PSU-beschermer vast.
+                    <br><br>
+                    <b>Stap 4:</b>
+                    Sluit nu je laptop aan en begin met de robot programeren!
+                </p>
+                
+            </div>
+            <img class="fotorobot1zijde" src="robot1zijde.JPEG" alt="robot1zijde">
+            <img class="fotorobotnietaf" src="robotnietaf.jpg" alt="robotnietaf">
             <!-- <div class="informatie-home">
                 <h3>
                     Proefwerktstuk 2023/2024
