@@ -133,7 +133,7 @@ main {
 
 .text-midden {
     position: absolute;
-    top: 55%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
@@ -229,6 +229,27 @@ section.home{
     padding: 20px; /* Adjust the padding based on your layout */
     padding-left: 30px;
     color: white;
+}
+
+.rounded-box h3 {
+    margin: 0; /* Remove default margin for h3 */
+}
+
+.rounded-box-media {
+
+    position: absolute;
+    top: 200px; 
+    left: 100px; 
+    width: 500px; 
+    background-color: rgba(31, 98, 142, 0.9);
+    border-radius: 25px;
+    padding: 20px;
+    padding-left: 30px;
+    color: white;
+}
+
+.mediatekst {
+    line-height: 120%;
 }
 
 .rounded-box h3 {
@@ -466,12 +487,58 @@ section.home{
     left: 920px;
 }
 
-.ontwerp-tekst {
+.fotopsu {
+    position: absolute;
+    top: 600px;
+    left: 100px;
+    width: 450px;
+    border-radius: 30px;
+}
+
+.tekstpsu {
     font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 930px;
+    left: 175px;
+}
+
+.fotohoek {
+    position: absolute;
+    top: 180px;
+    left: 800px;
+    height: 380px;
+    border-radius: 30px;
+}
+
+.teksthoek {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 550px;
+    left: 800px;
 }
 
 .programmeren-tekst {
     font-size: medium;
+}
+
+.langevideo {
+    position: absolute;
+    top: 20%;
+    left: 65%;
+}
+
+.kortevideo {
+    position: absolute;
+    top: 61%;
+    left: 65%;
+}
+
+.tijdvideo {
+    position: absolute;
+    top: 61%;
+    left: 32%;
 }
 
 /* .bouwen-tekst {
