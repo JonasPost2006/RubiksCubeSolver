@@ -3,6 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class Move:
-    face: str
+    zijde: str
     kloktegen: bool
     dubbel: bool

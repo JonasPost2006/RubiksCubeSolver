@@ -7,9 +7,9 @@ from move import Move
 import moveDecoder
 
 class movesGedaan(Cube):
-    def __init__(self, size: 3, faces: Dict[str, List[List[Colour]]] = None):
+    def __init__(self, size: 3, zijdes: Dict[str, List[List[Colour]]] = None):
         super().__init__(size) #MISSCHIEN WEGHALENNNNNNNNNNNNNNNNNNNNNNNNNNNN!!!!!!!!!!!!!!!!!!!!
-        self.faces = faces if faces else self.faces #geeft de informatie over de faces aan self.faces. Als er geen info van faces is uit cube.py dan wordt de standaard info aan self.faces gegeven.
+        self.zijdes = zijdes if zijdes else self.zijdes #geeft de informatie over de zijdes aan self.zijdes. Als er geen info van zijdes is uit cube.py dan wordt de standaard info aan self.zijdes gegeven.
         self.movesGedaan = []
     
     def get_moves_gedaan(self) -> List[Move]: #Deze functie geeft een lijst met de moves die zijn gedaan terug
@@ -20,8 +20,8 @@ class movesGedaan(Cube):
 
         self.do_moves(moves, False) #Omdat deze moves niet aan de move list toegevoegd moeten worden, het is namelijk alleen om de kleuren van de edge te krijgen, staat er False
         info = Edge({                                   #geeft Edge de kleur van de edge piece. Piece[0] is op de bovenste(U) zijde  op plaats -1, 1, en geeft die hun kleur. Zo kan bepaald worden hoe de edge eruit ziet
-            piece[0]: Colour(self.faces["U"][-1][1]),
-            piece[1]: Colour(self.faces["F"][0][1])
+            piece[0]: Colour(self.zijdes["U"][-1][1]),
+            piece[1]: Colour(self.zijdes["F"][0][1])
         })
         self.do_moves(moveDecoder.inverted_moves(moves), False)
         return info
@@ -31,9 +31,9 @@ class movesGedaan(Cube):
         
         self.do_moves(moves, False) 
         info = Corner({
-            piece[0]: Colour(self.faces["U"][-1][-1]),
-            piece[1]: Colour(self.faces["F"][0][-1]),
-            piece[2]: Colour(self.faces["R"][0][0])
+            piece[0]: Colour(self.zijdes["U"][-1][-1]),
+            piece[1]: Colour(self.zijdes["F"][0][-1]),
+            piece[2]: Colour(self.zijdes["R"][0][0])
         })
         self.do_moves(moveDecoder.inverted_moves(moves), False)
         return info

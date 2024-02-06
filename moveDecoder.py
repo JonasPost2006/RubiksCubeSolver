@@ -18,7 +18,7 @@ def moves_naar_hussel(moves: List[Move]) -> str:
     hussel = []
 
     for move in moves:
-        current_move = move.face
+        current_move = move.zijde
 
         if move.dubbel:
             current_move += "2"
@@ -35,14 +35,14 @@ def moves_naar_communicatie(moves: List[Move]) -> str:
     move_y = 0
 
     for move in moves:
-        if move.face.lower() == 'y': #Omdat y niet kan worden toegepast bij de robot moeten de instructies van de moves worden aangepast.
+        if move.zijde.lower() == 'y': #Omdat y niet kan worden toegepast bij de robot moeten de instructies van de moves worden aangepast.
             move_y += 1
             continue    #Y moet niet in de communicatie komen want daar kan de robot niks mee doen. Daarom uit de hele loop
 
-        if move.face.lower() in move_lijst:
-            current_move = move_lijst[(move_lijst.index(move.face.lower()) + move_y) % len(move_lijst)]
+        if move.zijde.lower() in move_lijst:
+            current_move = move_lijst[(move_lijst.index(move.zijde.lower()) + move_y) % len(move_lijst)]
         else:
-            current_move = move.face.lower()
+            current_move = move.zijde.lower()
 
         if move.kloktegen:
             current_move = current_move.upper()
@@ -70,7 +70,7 @@ def inverted_moves(moves: List[Move]):
     inverted_moves = []
 
     for move in reversed(moves):
-        inverted_move = Move(move.face, not move.kloktegen, move.dubbel)
+        inverted_move = Move(move.zijde, not move.kloktegen, move.dubbel)
         inverted_moves.append(inverted_move)
     
     return inverted_moves

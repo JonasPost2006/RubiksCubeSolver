@@ -10,7 +10,7 @@ from moveDecoder import hussel_naar_moves, moves_naar_hussel, moves_naar_communi
 
 
 def geef_oplossing(cube: Cube) -> List[Move]:
-    kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
+    kopie_cube = movesGedaan(cube.size, deepcopy(cube.zijdes))
     print("Status na hussel: ")
     kopie_cube.print_cube()
     start = time.time()
@@ -40,44 +40,6 @@ def geef_oplossing(cube: Cube) -> List[Move]:
     
     return moves_in_goede_move_vorm, moves
 
-def geef_oplossing_comments(cube: Cube) -> List[Move]:
-    kopie_cube = movesGedaan(cube.size, deepcopy(cube.faces))
-    print("Status na hussel: ")
-    kopie_cube.print_cube()
-    witte_kruis(kopie_cube)
-    witte_hoekjes(kopie_cube)
-    middelste_laag(kopie_cube)
-    OLL1(kopie_cube)
-    print()
-    print("GELE KANT")
-    kopie_cube.print_cube()
-    OLL2(kopie_cube)
-    print()
-    print("Hier")
-    kopie_cube.print_cube()
-    PLL1(kopie_cube)
-    kopie_cube.print_cube()
-    PLL2(kopie_cube)
-
-    kopie_cube.print_cube()
-    moves = kopie_cube.movesGedaan
-    # print("HIER", moves)
-    # print(moves_naar_hussel(moves))
-    print()
-    moves_in_goede_move_vorm = moves_naar_communicatie(moves)
-    print(moves_in_goede_move_vorm)
-    aantal_moves = len(moves_in_goede_move_vorm)
-    print(aantal_moves)
-
-    # OLL2(kopie_cube)
-    # kopie_cube.print_cube()
-    # moves2 = kopie_cube.movesGedaan
-    # moves_in_goede_move_vorm2 = moves_naar_communicatie(moves2)
-    # print(moves_in_goede_move_vorm2)
-    # aantal_moves2 = len(moves_in_goede_move_vorm2)
-    # print(aantal_moves2)
-    
-    return moves_in_goede_move_vorm
 def witte_kruis(cube: movesGedaan):
     EDGE_PIECES = {
         "UF": "",
@@ -100,7 +62,6 @@ def witte_kruis(cube: movesGedaan):
 
             if current_edge in [(colour, WHITE), (WHITE, colour)]: #Als deze edge een edge is van het witte kruis, worden de moves gedaan om hem naar upfront te krijgen
                 cube.do_moves(EDGE_PIECES[edge])
-
                 if cube.get_edge("UF")["U"] == WHITE: #Als de bovenste sticker van de piece op UF wit is dan F2, zo zit hij op de goede plek
                     cube.do_moves("F2")
                 else:                                 #Anders R U' R' F om piece op juiste positie te krijgen
@@ -172,7 +133,7 @@ def middelste_laag(cube:Cube):
 def OLL1(cube:Cube):
     for _ in range(4):
         bovenste_laag = [cube.get_sticker("UL"), cube.get_sticker("UB"), cube.get_sticker("UR"), cube.get_sticker("UF")]
-        status_bovenste_laag = [face == YELLOW for face in bovenste_laag]
+        status_bovenste_laag = [zijde == YELLOW for zijde in bovenste_laag]
 
         if status_bovenste_laag == [True, True, False, False]: #Hoekje linksboven
             cube.do_moves("F U R U' R' F'")
@@ -203,7 +164,7 @@ def OLL2(cube:Cube, printen):
         return [cube.get_sticker("UBL"), cube.get_sticker("UBR"), cube.get_sticker("UFR"), cube.get_sticker("UFL")]
     
     def status_bovenste_laag_hoekjes(top_layer):
-        return [face == YELLOW for face in top_layer]
+        return [zijde == YELLOW for zijde in top_layer]
     
     for _ in range(4):
         hoekjes = status_bovenste_laag_hoekjes(bovenste_laag_hoekjes(cube))
