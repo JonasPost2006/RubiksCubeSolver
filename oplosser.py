@@ -142,13 +142,13 @@ def OLL1(cube:Cube):
             cube.do_moves("F R U R' U' F'") #Horizontale lijn
             break
         if  status_bovenste_laag == [False, False, False, False]:#F R U R' U' F' U2 F U R U' R' F'
-            cube.do_moves("R U2 R2 F R F' U2 R' F R F'") #Checken of deze altijd werkt
+            cube.do_moves("R U2 R2 F R F' U2 R' F R F'")
             break
         else:
             cube.do_moves("U")
 
 def OLL2(cube:Cube, printen):
-    VORM_GELE_VLAK = { #https://jperm.net/algs/2look/oll
+    VORM_GELE_VLAK = {         #https://jperm.net/algs/2look/oll
         "vis_links": "L' U' L U' L' U2 L",
         "vis_rechts": "R U R' U R U2 R'",
         "dubbele_vis": "R' F R B' R' F' R B",
@@ -214,23 +214,11 @@ def OLL2(cube:Cube, printen):
         # elif hoekjes == [True, True, False, False]:
         elif hoekjes == [False, False, True, True]:
             # print(cube.get_sticker("BRU"))
-            # print("BJLALALALKALALALALKJFDSJKLFSDJKLFJL")
             if cube.get_sticker("BRU") == YELLOW:
                 cube.do_moves(VORM_GELE_VLAK["Headlights"])
             else:
                 cube.do_moves(VORM_GELE_VLAK["Sidebars"])
             break
-
-            # if cube.get_sticker("LUF") == YELLOW and cube.get_sticker("FUR") == YELLOW:
-            #     cube.do_moves(VORM_GELE_VLAK["hamer_headlights"])
-            #     if printen == True:
-            #         print("Hamer headlights")
-            # else:
-            #     cube.do_moves("U")
-            #     cube.do_moves(VORM_GELE_VLAK["hamer_zijkant"])
-            #     if printen == True:
-            #         print("Hamer zijkant")
-            # break
 
         else:
             cube.do_moves("U")
@@ -312,10 +300,6 @@ def PLL2(cube:Cube):
 # # hussel_moves = "F R U R' U' R U R' U' R U R' U' F'" #DEBUGGER
 # # hussel_moves = "D' R2 B' L2 R2 B' R2 F R2 B' R2 B2 U L2 B2 D L D R' B" #Deze doet het nog niet
 # cube.do_moves(hussel_moves)
-# # inverted_hussel = inverted_moves(hussel_naar_moves(hussel_moves))
-# # print(inverted_hussel, "HIEEERRRR")
-# # inverted_hussel_com = moves_naar_communicatie(inverted_hussel)
-# # print(inverted_hussel_com)
 
 # cube.print_cube()
 # print()
@@ -327,7 +311,3 @@ def PLL2(cube:Cube):
 # oplossing_korter = onnodig_weghalen(oplossing)
 # print("Moves voor communicatie:", oplossing_korter)
 # print(len(oplossing_korter))
-
-
-
-#NOG DOEN: VOORDAT ELKE FUNCTIE BEGINT CHECKEN OF HET RESULTAAT AL BEHAALD IS, VEEL EFFICIËNTER
